@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="monica-sanchez" id="changelog-1.17">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.17" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.17.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.17.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+		<sqlFile path="sql/COUNTRY_CALLING_CODES.sql" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.17.3">
+		<!-- Change set for Other Tables DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.17.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

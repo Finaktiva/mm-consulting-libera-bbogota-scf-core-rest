@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="monica-sanchez" id="changelog-1.24">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.24" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.24.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.24.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.24.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<addColumn tableName="TEMPORAL_TOKENS">
+            <column name="EVENT_ID" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.24.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

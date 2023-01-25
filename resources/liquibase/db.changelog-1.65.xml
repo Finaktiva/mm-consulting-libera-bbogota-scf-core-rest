@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="rafael-santos" id="changelog-1.65">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.65" />
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.65.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.65.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.65.3">
+		<!-- Change set for Other Tables DDL -->
+        <sql>
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES DROP COLUMN STATUS;	
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP FOREIGN KEY FK_CUSTOM_ATTRIBUTES_1;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP COLUMN LENDER_CUSTOM_ATTRIBUTE_ID;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK ADD COLUMN ATTRIBUTE_ID BIGINT(20);
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK ADD CONSTRAINT FK_CAT_CUSTOM_ATTRIBUTES_LINK_ID_1 FOREIGN KEY (ATTRIBUTE_ID) REFERENCES CAT_CUSTOM_ATTRIBUTES(ID);
+		</sql>
+
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.65.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

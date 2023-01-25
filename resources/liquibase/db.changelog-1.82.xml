@@ -1,0 +1,64 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="daniel-ledezma" id="changelog-1.82">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.82" />
+	</changeSet>
+
+	<changeSet author="daniel-ledezma" id="changelog-1.82.1">
+		<!-- Change set for Catalogs DDL -->
+    <createTable tableName="CAT_PERMISSION_SEGMENT">
+      <column name="CODE" type="VARCHAR(30)">
+        <constraints nullable="false" primaryKey="true" />
+			</column>
+      <column name="DESCRIPTION" type="VARCHAR(100)">
+        <constraints nullable="false" />
+      </column>
+      <column name="ORDER" type="INTEGER">
+        <constraints unique="true" nullable="false"/>
+      </column>
+      <column name="CREATION_DATE" type="DATETIME" defaultValueDate="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <addColumn tableName="CAT_PERMISSION">
+      <column name="ORDER" type="INTEGER">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    
+    <addColumn tableName="CAT_PERMISSION">
+      <column name="SEGMENT_CODE" type="VARCHAR(30)">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+
+	</changeSet>
+
+	<changeSet author="daniel-ledezma" id="changelog-1.82.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+      <sqlFile path="sql/CAT_PERMISSION_SEGMENT.sql" />
+      <sqlFile path="sql/CAT_PERMISSION_2.sql" />
+	</changeSet>
+		
+	<changeSet author="daniel-ledezma" id="changelog-1.82.3">
+		<!-- Change set for Other Tables DDL -->
+	</changeSet>
+
+	<changeSet author="daniel-ledezma" id="changelog-1.82.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

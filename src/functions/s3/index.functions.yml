@@ -1,0 +1,12 @@
+S3CredentialsPath:
+    handler: ${self:custom.prefix_module, 'src/functions/s3/'}s3-credentials-path.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):S3_CREDENTIALS_PATH_ENV}
+    events:
+      - http:
+          method: post
+          path: s3-credentials-path
+          cors: true
+          authorizer: 
+            type: CUSTOM
+            authorizerId: 
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer

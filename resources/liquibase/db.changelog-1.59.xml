@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="oscar-perez" id="changelog-1.59">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.59" />
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.59.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.59.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.59.3">
+		<!-- Change set for Other Tables DDL -->
+        <sql>	
+			ALTER TABLE ENTERPRISE_INVOICE MODIFY COLUMN CURRENT_DISCOUNT_PERCENTAGE DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_INVOICE_NEGOTIATION_PROCESS MODIFY COLUMN PAYER_REQUESTED_DISCOUNT_PERCENTAGE DECIMAL(20,2);	
+			ALTER TABLE ENTERPRISE_INVOICE_NEGOTIATION_PROCESS MODIFY COLUMN PROVIDER_REQUESTED_DISCOUNT_PERCENTAGE DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_INVOICE_NEGOTIATION_PROCESS MODIFY COLUMN CURRENT_DISCOUNT_PERCENTAGE DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_INVOICE MODIFY COLUMN CURRENT_AMOUNT DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_INVOICE MODIFY COLUMN EFFECTIVE_PAYMENT_AMOUNT DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_INVOICE MODIFY COLUMN AMOUNT DECIMAL(20,2) NOT NULL;
+			ALTER TABLE ENTERPRISE_INVOICE_FUNDING_PROCESS MODIFY COLUMN LENDER_EFFECTIVE_PAYMENT_AMOUNT DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_INVOICE_FUNDING_PROCESS MODIFY COLUMN PROVIDER_EFFECTIVE_PAYMENT_AMOUNT DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_FUNDING_LINK MODIFY COLUMN RATE_PERCENTAGE DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_FUNDING_LINK MODIFY COLUMN TOTAL_FUNDING_AMOUNT DECIMAL(20,2);
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST MODIFY COLUMN RATE_PERCENTAGE DECIMAL(20,2);
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST MODIFY COLUMN PAYER_REQUEST_AMOUNT DECIMAL(20,2);
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST MODIFY COLUMN LENDER_GRANTED_AMOUNT DECIMAL(20,2);
+			ALTER TABLE ENTERPRISE_INVOICE MODIFY COLUMN ADVANCE_PAYMENT DECIMAL(20,2);
+		</sql>
+
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.59.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

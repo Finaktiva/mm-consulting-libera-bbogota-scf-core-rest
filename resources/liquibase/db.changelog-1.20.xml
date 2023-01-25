@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="monica-sanchez" id="changelog-1.20">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.20" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.20.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.20.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.20.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<addColumn tableName="ENTERPRISE">
+            <column name="PHONE_NUMBER" type="VARCHAR(10)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE">
+            <column name="LADA_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_LADA_0"
+		    baseTableName="ENTERPRISE" baseColumnNames="LADA_ID"
+		    referencedTableName="CAT_LADA" referencedColumnNames="ID"
+		    deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+		    onUpdate="RESTRICT" />
+
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.20.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

@@ -1,0 +1,31 @@
+service:
+  name: libera
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  rootDir: ""
+  env: ${self:custom.rootDir}properties/properties.yaml  
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${file(${self:custom.rootDir}properties/properties.yaml):ENV.${self:provider.stage}.AWS.REGION}
+  stage: ${opt:stage, 'bocc-dev'}
+
+functions:
+  - ${file(./src/functions/ping/index.functions.yml)}
+  - ${file(./src/functions/auth/index.functions.yml)}
+  - ${file(./src/functions/cognito/index.functions.yml)}
+  - ${file(./src/functions/s3/index.functions.yml)}
+  - ${file(./src/functions/enterprises/index.functions.yml)}
+  - ${file(./src/functions/users/index.functions.yml)}  
+  - ${file(./src/functions/catalogs/index.functions.yml)}  
+  - ${file(./src/functions/me/index.functions.yml)}    
+  - ${file(./src/functions/sqs/index.functions.yml)}
+  - ${file(./src/functions/providers/index.functions.yml)}
+  - ${file(./src/functions/payers/index.functions.yml)}  
+  - ${file(./src/functions/lenders/index.functions.yml)}
+  - ${file(./src/functions/apis/index.functions.yml)}  

@@ -1,0 +1,74 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+				http://www.liquibase.org/xml/ns/pro
+				http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+				http://www.liquibase.org/xml/ns/dbchangelog
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="angel-audelo" id="changelog-1.77">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.77" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.77.1">
+		<!-- Change set for Catalogs DDL -->
+		<createTable tableName="CAT_BANK_REGION">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="DESCRIPTION" type="VARCHAR(250)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.77.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+		<insert tableName="CAT_BANK_REGION">
+			<column  name="ID"  value="1"/>
+			<column  name="DESCRIPTION"  value="BOGOTA"/>
+		</insert>
+
+		<insert tableName="CAT_BANK_REGION">
+			<column  name="ID"  value="2"/>
+			<column  name="DESCRIPTION"  value="BARRANQUILLA"/>
+		</insert>
+
+		<insert tableName="CAT_BANK_REGION">
+			<column  name="ID"  value="3"/>
+			<column  name="DESCRIPTION"  value="CALI"/>
+		</insert>
+
+		<insert tableName="CAT_BANK_REGION">
+			<column  name="ID"  value="4"/>
+			<column  name="DESCRIPTION"  value="MEDELLIN"/>
+		</insert>
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.77.3">
+		<!-- Change set for Other Tables DDL -->
+		<addColumn tableName="ENTERPRISE">
+			<column name="BANK_REGION_ID" type="BIGINT">
+					<constraints nullable="true" />
+			</column>
+		</addColumn>
+
+		<addForeignKeyConstraint constraintName="FK6_ENTERPRISE_CAT_BANK_REGION"
+			baseTableName="ENTERPRISE" baseColumnNames="BANK_REGION_ID"
+			referencedTableName="CAT_BANK_REGION" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.77.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

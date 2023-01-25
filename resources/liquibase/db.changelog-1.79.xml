@@ -1,0 +1,191 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="angel-audelo" id="changelog-1.79">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.79" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.79.1">
+		<!-- Change set for Catalogs DDL -->
+		<delete
+			tableName="ROLE">  
+			<where>name='LIBERA_COLLABORATOR'</where>  
+    </delete>
+		<delete
+			tableName="ROLE">  
+			<where>name='LIBERA_PROGRAM_MANAGER'</where>  
+    </delete>
+		<delete
+			tableName="ROLE">  
+			<where>name='LIBERA_PROVIDER_MANAGER'</where>  
+    </delete>
+		<delete
+			tableName="ROLE">  
+			<where>name='LIBERA_USER_MANAGER'</where>  
+    </delete>
+
+		<addColumn tableName="ROLE">
+			<column name="APPLIES_TO_USER_TYPE" type="VARCHAR(15)">
+					<constraints nullable="false" />
+			</column>
+			<column name="ACRONYM" type="VARCHAR(5)">
+					<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+					<constraints nullable="false" />
+			</column>
+			<column name="MODIFICATION_DATE" type="DATETIME">
+					<constraints nullable="true" />
+			</column>
+			<column name="CREATION_USER_ID" type="BIGINT">
+					<constraints nullable="true" />
+			</column>
+			<column name="MODIFICATION_USER_ID" type="BIGINT">
+					<constraints nullable="true" />
+			</column>
+			<column name="STATUS" type="VARCHAR(10)" defaultValue='ENABLED'>
+					<constraints nullable="false" />
+			</column>
+			<column name="VISIBLE" type="BIT(1)">
+					<constraints nullable="false" />
+			</column>
+		</addColumn>
+
+		<addForeignKeyConstraint constraintName="FK0_ROLE_USER"
+			baseTableName="ROLE" baseColumnNames="CREATION_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK1_ROLE_USER"
+			baseTableName="ROLE" baseColumnNames="MODIFICATION_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+	</changeSet>
+	
+	<changeSet author="angel-audelo" id="changelog-1.79.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+		<update tableName="ROLE">            
+			<column name="APPLIES_TO_USER_TYPE" value="ENTERPRISE_USER"/>
+			<where> NAME ='ENTERPRISE_CONSOLE_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="ACRONYM" value="ADE"/>
+			<where> NAME ='ENTERPRISE_CONSOLE_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="CREATION_DATE" valueDate="CURRENT_TIMESTAMP"/>
+			<where> NAME ='ENTERPRISE_CONSOLE_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="STATUS" value="ENABLED"/>
+			<where> NAME ='ENTERPRISE_CONSOLE_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="VISIBLE" valueBoolean="true"/>
+			<where> NAME ='ENTERPRISE_CONSOLE_ADMIN' </where>
+		</update>
+	
+		<update tableName="ROLE">            
+			<column name="APPLIES_TO_USER_TYPE" value="ENTERPRISE_USER"/>
+			<where> NAME ='ENTERPRISE_FUNDING_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="ACRONYM" value="ADFO"/>
+			<where> NAME ='ENTERPRISE_FUNDING_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="CREATION_DATE" valueDate="CURRENT_TIMESTAMP"/>
+			<where> NAME ='ENTERPRISE_FUNDING_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="STATUS" value="ENABLED"/>
+			<where> NAME ='ENTERPRISE_FUNDING_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="VISIBLE" valueBoolean="true"/>
+			<where> NAME ='ENTERPRISE_FUNDING_ADMIN' </where>
+		</update>
+	
+		<update tableName="ROLE">            
+			<column name="APPLIES_TO_USER_TYPE" value="ENTERPRISE_USER"/>
+			<where> NAME ='ENTERPRISE_PAYER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="ACRONYM" value="ADPA"/>
+			<where> NAME ='ENTERPRISE_PAYER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="CREATION_DATE" valueDate="CURRENT_TIMESTAMP"/>
+			<where> NAME ='ENTERPRISE_PAYER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="STATUS" value="ENABLED"/>
+			<where> NAME ='ENTERPRISE_PAYER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="VISIBLE" valueBoolean="true"/>
+			<where> NAME ='ENTERPRISE_PAYER_ADMIN' </where>
+		</update>
+	
+		<update tableName="ROLE">            
+			<column name="APPLIES_TO_USER_TYPE" value="ENTERPRISE_USER"/>
+			<where> NAME ='ENTERPRISE_PROVIDER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="ACRONYM" value="ADPR"/>
+			<where> NAME ='ENTERPRISE_PROVIDER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="CREATION_DATE" valueDate="CURRENT_TIMESTAMP"/>
+			<where> NAME ='ENTERPRISE_PROVIDER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="STATUS" value="ENABLED"/>
+			<where> NAME ='ENTERPRISE_PROVIDER_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="VISIBLE" valueBoolean="true"/>
+			<where> NAME ='ENTERPRISE_PROVIDER_ADMIN' </where>
+		</update>
+	
+		<update tableName="ROLE">            
+			<column name="APPLIES_TO_USER_TYPE" value="LIBERA_USER"/>
+			<where> NAME ='LIBERA_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="ACRONYM" value="ADL"/>
+			<where> NAME ='LIBERA_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="CREATION_DATE" valueDate="CURRENT_TIMESTAMP"/>
+			<where> NAME ='LIBERA_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="STATUS" value="ENABLED"/>
+			<where> NAME ='LIBERA_ADMIN' </where>
+		</update>
+		<update tableName="ROLE">            
+			<column name="VISIBLE" valueBoolean="true"/>
+			<where> NAME ='LIBERA_ADMIN' </where>
+		</update>
+	</changeSet>
+		
+	<changeSet author="angel-audelo" id="changelog-1.79.3">
+		<!-- Change set for Other Tables DDL -->
+	</changeSet>
+		
+	<changeSet author="angel-audelo" id="changelog-1.79.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

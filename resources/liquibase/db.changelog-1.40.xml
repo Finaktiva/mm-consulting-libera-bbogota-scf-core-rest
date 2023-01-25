@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="edwin-balseca" id="changelog-1.40">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.40" />
+	</changeSet>
+
+	<changeSet author="edwin-balseca" id="changelog-1.40.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="edwin-balseca" id="changelog-1.40.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="edwin-balseca" id="changelog-1.40.3">
+		<!-- Change set for Other Tables DDL -->
+
+	  	<createTable tableName="CAT_LANGUAGE">
+			<column name="CODE" type="VARCHAR(20)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(80)">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+
+        <addColumn tableName="USER">
+            <column name="PREFERRED_LANGUAGE" type="VARCHAR(20)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_USER_CAT_LANGUAGE_01"
+            baseTableName="USER" baseColumnNames="PREFERRED_LANGUAGE"
+            referencedTableName="CAT_LANGUAGE" referencedColumnNames="CODE"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+	</changeSet>
+
+	<changeSet author="edwin-balseca" id="changelog-1.40.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+
+        <insert tableName="CAT_LANGUAGE">
+            <column name="CODE" value="ESP"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+
+        <insert tableName="CAT_LANGUAGE">
+            <column name="CODE" value="ENG"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+	</changeSet>
+
+</databaseChangeLog>

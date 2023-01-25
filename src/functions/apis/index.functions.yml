@@ -1,0 +1,36 @@
+getApiClients:
+    handler: ${self:custom.prefix_module, 'src/functions/apis/'}get-api-clients.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_API_CLIENT_ENV}
+    events:
+      - http:
+          method: get
+          path: apis/clients
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getDailyRates:
+    handler: ${self:custom.prefix_module, 'src/functions/apis/'}get-daily-rates.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_DAILY_RATES_ENV}
+    events:
+      - http:
+          method: get
+          path: apis/daily-rates
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getBalances:
+    handler: ${self:custom.prefix_module, 'src/functions/apis/'}get-balances.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_API_BALANCES_ENV}
+    events:
+      - http:
+          method: get
+          path: apis/balances
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer

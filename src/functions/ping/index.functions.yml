@@ -1,0 +1,8 @@
+ping:
+    handler: ${self:custom.prefix_module, 'src/functions/ping/'}ping.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):PING_FUNCTION_ENV}
+    events:
+      - http:
+          method: post
+          path: ping
+          cors: true

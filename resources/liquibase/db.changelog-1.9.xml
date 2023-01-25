@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.9">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.9" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.9.1">
+		<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.9.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.9.3">
+		<!-- Change set for Other Tables DDL -->
+		
+		<createTable tableName="ENTERPRISE_BRANDING">
+			<column name="ENTERPRISE_ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="PRIMARY_COLOR" type="VARCHAR(16)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="ACCENT_COLOR" type="VARCHAR(16)" >
+				<constraints nullable="true" />
+			</column>
+            <column name="BRANDING_LOGO" type="BIGINT" >
+                <constraints nullable="true" />
+            </column>
+            <column name="BRANDING_FAVICON" type="BIGINT" >
+                <constraints nullable="true" />
+            </column>
+
+		</createTable>
+        
+        <addForeignKeyConstraint constraintName="FK_ENTERPRISE_BRANDING_0"
+		    baseTableName="ENTERPRISE_BRANDING" baseColumnNames="ENTERPRISE_ID"
+		    referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+		    deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+		    onUpdate="RESTRICT" />
+
+        <addForeignKeyConstraint constraintName="FK_ENTERPRISE_BRANDING_1"
+            baseTableName="ENTERPRISE_BRANDING" baseColumnNames="BRANDING_LOGO"
+            referencedTableName="S3_METADATA" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+            
+        <addForeignKeyConstraint constraintName="FK_ENTERPRISE_BRANDING_2"
+            baseTableName="ENTERPRISE_BRANDING" baseColumnNames="BRANDING_FAVICON"
+            referencedTableName="S3_METADATA" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+        
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.9.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="monica-sanchez" id="changelog-1.45">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.45" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.45.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.45.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.45.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<sql>
+			ALTER TABLE ENTERPRISE_INVOICE MODIFY COLUMN AMOUNT DECIMAL(10,2) NOT NULL
+		</sql>
+
+		<sql>
+			ALTER TABLE ENTERPRISE_INVOICE_FUNDING_PROCESS MODIFY COLUMN LENDER_EFFECTIVE_PAYMENT_AMOUNT DECIMAL(10,2)
+		</sql>
+
+		<sql>
+			ALTER TABLE ENTERPRISE_INVOICE_FUNDING_PROCESS MODIFY COLUMN PROVIDER_EFFECTIVE_PAYMENT_AMOUNT DECIMAL(10,2)
+		</sql>
+
+		<sql>
+			ALTER TABLE ENTERPRISE_FUNDING_LINK MODIFY COLUMN RATE_PERCENTAGE DECIMAL(10,2)
+		</sql>
+
+		<sql>
+			ALTER TABLE ENTERPRISE_FUNDING_LINK MODIFY COLUMN TOTAL_FUNDING_AMOUNT DECIMAL(10,2)
+		</sql>
+		
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.45.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

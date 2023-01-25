@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="oscar perez" id="changelog-1.61">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.61" />
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.61.1">
+		<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.61.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.61.3">
+		<!-- Change set for Other Tables DDL -->
+		
+		<createTable tableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="FOLIO_NUMBER" type="VARCHAR(40)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="AMOUNT_INVOICES" type="SMALLINT" >
+				<constraints nullable="false" />
+			</column>
+            <column name="AMOUNT" type="DECIMAL(25,2)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+            <column name="CREATION_USER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+            <column name="FINISHED_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+            <column name="STATUS" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTERPRISE_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="PROVIDER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="LENDER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="INVOICE_BULK_NEGOTIATION_PROCESS_ID" type="INTEGER" >
+				<constraints nullable="true" />
+			</column>
+			<column name="CURRENT_AMOUNT" type="DECIMAL(25,2)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="CURRENCY_CODE" type="VARCHAR(50)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="CURRENT_INVOICE_BULK_NEGOTIATION_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_2_BULK_NEGOTIATION_REQUEST_USER"
+			baseTableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST" baseColumnNames="CREATION_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_7_ENTERPRISE_INVOICE_INVOICE_BULK_NEGOTIATION"
+			baseTableName="ENTERPRISE_INVOICE" baseColumnNames="CURRENT_INVOICE_BULK_NEGOTIATION_ID"
+			referencedTableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_1_BULK_NEGOTIATION_REQUEST_ENTERPRISE"
+			baseTableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST" baseColumnNames="ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+		
+		<addForeignKeyConstraint constraintName="FK_4_BULK_NEGOTIATION_REQUEST_ENTERPRISE"
+			baseTableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST" baseColumnNames="PROVIDER_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_5_BULK_NEGOTIATION_REQUEST_ENTERPRISE"
+			baseTableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST" baseColumnNames="LENDER_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_6_BULK_NEGOTIATION_REQUEST_NEGOTIATION_PROCESS"
+			baseTableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST" baseColumnNames="INVOICE_BULK_NEGOTIATION_PROCESS_ID"
+			referencedTableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" referencedColumnNames="NEGOTIATION_PROCESS_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_3_BULK_NEGOTIATION_REQUEST_CURRENCY"
+			baseTableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST" baseColumnNames="CURRENCY_CODE"
+			referencedTableName="CAT_CURRENCY" referencedColumnNames="CODE"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.61.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

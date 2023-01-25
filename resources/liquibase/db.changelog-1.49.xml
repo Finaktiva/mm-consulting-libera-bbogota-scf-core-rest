@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.49">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.49" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.49.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.49.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.49.3">
+		<!-- Change set for Other Tables DDL -->
+
+        <createTable tableName="LENDER_CUSTOM_ATTRIBUTES">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="LENDER_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="ATTRIBUTE_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+            <column name="CREATION_USER" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="VALUE" type="VARCHAR(220)" >
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+
+        <addForeignKeyConstraint constraintName="FK_LENDER_CUSTOM_ATTRIBUTE_LENDER_1"
+            baseTableName="LENDER_CUSTOM_ATTRIBUTES" baseColumnNames="LENDER_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+        <addForeignKeyConstraint constraintName="FK_LENDER_CAT_CUSTOM_ATTRIBUTE_2"
+            baseTableName="LENDER_CUSTOM_ATTRIBUTES" baseColumnNames="ATTRIBUTE_ID"
+            referencedTableName="CAT_CUSTOM_ATTRIBUTES" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+        <addForeignKeyConstraint constraintName="FK_LENDER_CUSTOM_ATTRIBUTE_USER_3"
+            baseTableName="LENDER_CUSTOM_ATTRIBUTES" baseColumnNames="CREATION_USER"
+            referencedTableName="USER" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+            
+        
+        <createTable tableName="OPTION_CUSTOM_ATTRIBUTES">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="ATTRIBUTE_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="VALUE" type="VARCHAR(220)" >
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+        
+        <addForeignKeyConstraint constraintName="FK_OPTION_CAT_CUSTOM_ATTRIBUTE_1"
+            baseTableName="OPTION_CUSTOM_ATTRIBUTES" baseColumnNames="ATTRIBUTE_ID"
+            referencedTableName="CAT_CUSTOM_ATTRIBUTES" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+        <createTable tableName="ANSWER_CUSTOM_ATTRIBUTES">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+			<column name="ATTRIBUTE_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="OPTION_ID" type="BIGINT" >
+                <constraints nullable="true" />
+            </column>
+			<column name="VALUE" type="VARCHAR(220)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="CREATION_DATE" type="DATE" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_USER" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="MODIFICATION_DATE" type="DATE" >
+				<constraints nullable="false" />
+			</column>
+			<column name="MODIFICATION_USER" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+        </createTable>
+        
+        <addForeignKeyConstraint constraintName="FK_ANSWER_CAT_CUSTOM_ATTRIBUTE_1"
+            baseTableName="ANSWER_CUSTOM_ATTRIBUTES" baseColumnNames="ATTRIBUTE_ID"
+            referencedTableName="CAT_CUSTOM_ATTRIBUTES" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+        
+        <addForeignKeyConstraint constraintName="FK_ANSWER_CUSTOM_ATTRIBUTE_OPTION_2"
+            baseTableName="ANSWER_CUSTOM_ATTRIBUTES" baseColumnNames="OPTION_ID"
+            referencedTableName="OPTION_CUSTOM_ATTRIBUTES" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+            
+        <addForeignKeyConstraint constraintName="FK_ANSWER_CUSTOM_ATTRIBUTE_USER_3"
+            baseTableName="ANSWER_CUSTOM_ATTRIBUTES" baseColumnNames="CREATION_USER"
+            referencedTableName="USER" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+            
+        <addForeignKeyConstraint constraintName="FK_ANSWER_CUSTOM_ATTRIBUTE_USER_4"
+            baseTableName="ANSWER_CUSTOM_ATTRIBUTES" baseColumnNames="MODIFICATION_USER"
+            referencedTableName="USER" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+        <createTable tableName="LENDER_CUSTOM_ATTRIBUTES_LINK">
+			<column name="LENDER_CUSTOM_ATTRIBUTE_ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="PAYER_ENTERPRISE_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="LENDER_ENTERPRISE_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+         <addForeignKeyConstraint constraintName="FK_CUSTOM_ATTRIBUTES_1"
+            baseTableName="LENDER_CUSTOM_ATTRIBUTES_LINK" baseColumnNames="LENDER_CUSTOM_ATTRIBUTE_ID"
+            referencedTableName="LENDER_CUSTOM_ATTRIBUTES" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+         <addForeignKeyConstraint constraintName="FK_ENTERPRISE_FUNDING_LINK_2"
+            baseTableName="LENDER_CUSTOM_ATTRIBUTES_LINK" baseColumnNames="PAYER_ENTERPRISE_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+            
+         <addForeignKeyConstraint constraintName="FK_ENTERPRISE_FUNDING_LINK_3"
+            baseTableName="LENDER_CUSTOM_ATTRIBUTES_LINK" baseColumnNames="LENDER_ENTERPRISE_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.49.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

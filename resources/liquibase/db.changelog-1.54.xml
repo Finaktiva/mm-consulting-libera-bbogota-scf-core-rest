@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.54">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.54" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.54.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.54.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.54.3">
+		<!-- Change set for Other Tables DDL -->
+
+        <sql>			
+			ALTER TABLE ANSWER_CUSTOM_ATTRIBUTES DROP FOREIGN KEY FK_ANSWER_CUSTOM_ATTRIBUTES_LINK_1;
+			ALTER TABLE ANSWER_CUSTOM_ATTRIBUTES DROP FOREIGN KEY FK_ANSWER_CAT_CUSTOM_ATTRIBUTE_1;
+			ALTER TABLE ANSWER_CUSTOM_ATTRIBUTES DROP COLUMN ATTRIBUTE_ID;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP FOREIGN KEY FK_CUSTOM_ATTRIBUTES_1;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP PRIMARY KEY;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK ADD ID BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK ADD CONSTRAINT FK_CUSTOM_ATTRIBUTES_1 FOREIGN KEY (LENDER_CUSTOM_ATTRIBUTE_ID) REFERENCES LENDER_CUSTOM_ATTRIBUTES(ID);
+			ALTER TABLE ANSWER_CUSTOM_ATTRIBUTES ADD CONSTRAINT FK_ANSWER_CUSTOM_ATTRIBUTES_LINK_1 FOREIGN KEY (ATTRIBUTE_LINK_ID) REFERENCES LENDER_CUSTOM_ATTRIBUTES_LINK(ID);
+		</sql>
+
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.54.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

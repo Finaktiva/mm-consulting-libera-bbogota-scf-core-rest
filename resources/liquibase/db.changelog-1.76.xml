@@ -1,0 +1,107 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="angel-audelo" id="changelog-1.76">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.76" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.76.1">
+		<!-- Change set for Catalogs DDL -->
+		<createTable tableName="CAT_BASE_RATE_TYPE">
+			<column name="CODE" type="VARCHAR(5)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="CAT_RATE_PERIODICITY_TYPE">
+			<column name="CODE" type="VARCHAR(5)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="REL_BASE_RATE_PERIODICITY">
+			<column name="BASE_RATE_CODE" type="VARCHAR(5)"> 
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="RATE_PERIODICITY_CODE" type="VARCHAR(5)">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FK0_REL_BASE_RATE_CB_RATE_TYPE"
+			baseTableName="REL_BASE_RATE_PERIODICITY" baseColumnNames="BASE_RATE_CODE"
+			referencedTableName="CAT_BASE_RATE_TYPE" referencedColumnNames="CODE"
+			onDelete="RESTRICT" onUpdate="RESTRICT" />
+		<addForeignKeyConstraint constraintName="FK1_REL_BASE_RATE_CB_PERIODICITY_TYPE"
+			baseTableName="REL_BASE_RATE_PERIODICITY" baseColumnNames="RATE_PERIODICITY_CODE"
+			referencedTableName="CAT_RATE_PERIODICITY_TYPE" referencedColumnNames="CODE"
+			onDelete="RESTRICT" onUpdate="RESTRICT" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.76.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+		<insert tableName="CAT_BASE_RATE_TYPE">  
+			<column  name="CODE"  value="DTF"/>
+			<column  name="DESCRIPTION"  value="Depósito a Término Fijo"/>
+		</insert>
+		<insert tableName="CAT_BASE_RATE_TYPE"> 
+			<column  name="CODE"  value="IBR"/>
+			<column  name="DESCRIPTION"  value="Indicador Bancario de Referencia"/>
+		</insert>
+		<insert tableName="CAT_RATE_PERIODICITY_TYPE">  
+			<column  name="CODE"  value="MV"/>
+			<column  name="DESCRIPTION"  value="Mes Vencido"/>
+		</insert>
+		<insert tableName="CAT_RATE_PERIODICITY_TYPE">
+			<column  name="CODE"  value="TV"/>
+			<column  name="DESCRIPTION"  value="Trimestre Vencido"/>
+		</insert>
+		<insert tableName="CAT_RATE_PERIODICITY_TYPE">
+			<column  name="CODE"  value="SV"/>
+			<column  name="DESCRIPTION"  value="Semestre Vencido"/>
+		</insert>
+		<insert tableName="CAT_RATE_PERIODICITY_TYPE">
+			<column  name="CODE"  value="TA"/>
+			<column  name="DESCRIPTION"  value="Tasa Anual"/>
+		</insert>
+		<insert tableName="REL_BASE_RATE_PERIODICITY">  
+			<column  name="BASE_RATE_CODE"  value="IBR"/>
+			<column  name="RATE_PERIODICITY_CODE"  value="TV"/>
+		</insert>
+		<insert tableName="REL_BASE_RATE_PERIODICITY"> 
+			<column  name="BASE_RATE_CODE"  value="IBR"/>
+			<column  name="RATE_PERIODICITY_CODE"  value="MV"/>
+		</insert>
+		<insert tableName="REL_BASE_RATE_PERIODICITY"> 
+			<column  name="BASE_RATE_CODE"  value="IBR"/>
+			<column  name="RATE_PERIODICITY_CODE"  value="SV"/>
+		</insert>
+		<insert tableName="REL_BASE_RATE_PERIODICITY"> 
+			<column  name="BASE_RATE_CODE"  value="DTF"/>
+			<column  name="RATE_PERIODICITY_CODE"  value="TA"/>
+		</insert>
+	</changeSet>
+		
+	<changeSet author="angel-audelo" id="changelog-1.76.3">
+		<!-- Change set for Other Tables DDL -->
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.76.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

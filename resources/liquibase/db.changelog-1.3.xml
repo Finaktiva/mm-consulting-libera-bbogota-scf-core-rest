@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.3">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.3" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.3.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.3.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.3.3">
+		<!-- Change set for Other Tables DDL -->
+        <addColumn tableName="ENTERPRISE">
+            <column name="AFFILIATION_ACCEPTANCE_DATE" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.3.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

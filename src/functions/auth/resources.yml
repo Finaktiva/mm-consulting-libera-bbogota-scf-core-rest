@@ -1,0 +1,25 @@
+resources: 
+  Resources: 
+    ApiGatewayAuthorizer:
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        IdentitySource: method.request.header.Authorization
+        AuthorizerResultTtlInSeconds: 0
+        Name: Libera-${self:provider.stage}-Authorization
+        RestApiId:
+          !ImportValue Libera-${self:provider.stage}-RestApiId
+        Type: TOKEN
+        AuthorizerUri: 
+          !Join
+            - ''
+            - - 'arn:aws:apigateway:'
+              - ${self:provider.region}
+              - ':lambda:path/2015/03/31/functions/'
+              - !GetAtt [AuthorizerLambdaFunction, Arn]
+              - '/invocations'
+  Outputs:
+    apiGatewayAuthorizer:
+      Value:
+        Ref: ApiGatewayAuthorizer
+      Export: 
+        Name: libera-${self:provider.stage}-basic-authorizer

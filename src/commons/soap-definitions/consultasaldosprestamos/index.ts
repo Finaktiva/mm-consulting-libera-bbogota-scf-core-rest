@@ -1,0 +1,12 @@
+export { TnsmnsjeEntradaType } from "./definitions/TnsmnsjeEntradaType";
+export { EncabezadoEntrada } from "./definitions/EncabezadoEntrada";
+export { ConsultarSaldosPrestamosEntrada } from "./definitions/ConsultarSaldosPrestamosEntrada";
+export { InfoPrdctoPrstmo } from "./definitions/InfoPrdctoPrstmo";
+export { TnsmnsjeSalidaType } from "./definitions/TnsmnsjeSalidaType";
+export { EncabezadoSalida } from "./definitions/EncabezadoSalida";
+export { ConsultarSaldosPrestamosSalida } from "./definitions/ConsultarSaldosPrestamosSalida";
+export { InfoPrdctoPrstmo1 } from "./definitions/InfoPrdctoPrstmo1";
+export { InfoCmpnts } from "./definitions/InfoCmpnts";
+export { createClientAsync, ConsultaSaldosPrestamosClient } from "./client";
+export { ConsultaSaldosPrestamosService } from "./services/ConsultaSaldosPrestamosService";
+export { ConsultaSaldosPrestamosClienteSoap } from "./ports/ConsultaSaldosPrestamosClienteSoap";

@@ -1,0 +1,3 @@
+Authorizer:
+  handler: ${self:custom.prefix_module, 'src/functions/auth/'}basic-authorizer.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):ME_AUTHORIZER_ENV}

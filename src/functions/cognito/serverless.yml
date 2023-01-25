@@ -1,0 +1,29 @@
+service:
+  name: libera-cognito
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-deployment-bucket
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${file(${self:custom.rootDir}properties/properties.yaml):ENV.${self:provider.stage}.AWS.REGION}
+  stage: ${opt:stage, 'bocc-dev'}
+  deploymentBucket:
+    name: libera-${self:provider.stage}-deployment-bucket
+  iamRoleStatements: ${file(${self:custom.rootDir}properties/iamRoleStatements.yml):iamRoleStatements}
+
+custom:
+  prefix_module: ""
+  rootDir : '../../../'
+  webpack : "../../../webpack.config.js"
+  env: ${self:custom.rootDir}properties/properties.yaml
+
+package:
+  individually: true
+
+functions: ${file(./index.functions.yml)}
+resources: ${file(./resources.yml):resources}
+  

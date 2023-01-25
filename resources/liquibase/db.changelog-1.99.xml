@@ -1,0 +1,85 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.99">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.99" />
+	</changeSet>
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.99.1">
+		<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.99.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+		
+	<changeSet author="Daniel Ledezma" id="changelog-1.99.3">
+		<!-- Change set for Other Tables DDL -->
+		<createTable tableName="TERMS_AND_CONDITIONS">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="VERSION" type="VARCHAR(20)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="S3_METADATA_ID" type="BIGINT(20)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_TERMS_AND_CONDITIONS_0"
+			baseTableName="TERMS_AND_CONDITIONS" baseColumnNames="S3_METADATA_ID"
+			referencedTableName="S3_METADATA" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+
+		<createTable tableName="REL_ENTERPRISE_TERMS_AND_CONDITIONS">
+			<column name="ENTERPRISE_ID" type="BIGINT(20)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="USER_ID" type="BIGINT(20)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTANCE_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION_ID" type="BIGINT(20)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_REL_ENTERPRISE_TERMS_AND_CONDITIONS_0"
+			baseTableName="REL_ENTERPRISE_TERMS_AND_CONDITIONS" baseColumnNames="ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		
+		<addForeignKeyConstraint constraintName="FK_REL_ENTERPRISE_TERMS_AND_CONDITIONS_1"
+			baseTableName="REL_ENTERPRISE_TERMS_AND_CONDITIONS" baseColumnNames="USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		
+		<addForeignKeyConstraint constraintName="FK_REL_ENTERPRISE_TERMS_AND_CONDITIONS_2"
+			baseTableName="REL_ENTERPRISE_TERMS_AND_CONDITIONS" baseColumnNames="VERSION_ID"
+			referencedTableName="TERMS_AND_CONDITIONS" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+
+	</changeSet>
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.99.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

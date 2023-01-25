@@ -1,0 +1,750 @@
+createEnterprise:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_ENTERPRISE_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseDocumentationByEnterpriseId:
+  name: libera-${self:provider.stage}-getEnterpriseDocumentationByEnterpriseId
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-documentation.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_DOCUMENTATION_BY_ENTERPRISE_ID_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/documentation
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        cors: true
+getEnterprises:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):ENTERPRISES_FUNCTION_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateDocumentationStatusById:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-status.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_DOCUMENTATION_STATUS_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: patch
+        path: enterprises/{enterpriseId}/documentation/{documentationId}/status
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+              documentationId: true
+        cors: true
+getEnterpriseById:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}enterprise-detail.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):ENTERPRISE_DETAIL_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateEnterpriseStatusById:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-enterprise-status.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_ENTERPRISE_STATUS_ENV}
+  events:
+    - http:
+        method: patch
+        path: enterprises/{enterpriseId}/status
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateEnterpriseRequest:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-enterprise-request.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):SEND_REQUEST_FUNCTION_ENV}
+  events:
+    - http:
+        method: patch
+        path: enterprises/{enterpriseId}/request
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+createEnterpriseFile:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create-enterprise-file.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_ENTERPRISE_FILE_ENV}
+  events:
+    - http:
+        method: put
+        path: enterprises/{enterpriseId}/documentation/{documentationId}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+deleteDocument:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}delete-document.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):DELETE_DOCUMENT_FUNCTION_ENV}
+  events:
+    - http:
+        method: delete
+        path: enterprises/{enterpriseId}/documentation/{documentationId}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getUsersByEnterpriseId:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-users.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_USERS_BY_ENTERPRISE_ID_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/users
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+createEnterpriseUser:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create-enterprise-user.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_ENTERPRISE_USER_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: post
+        path: enterprises/{enterpriseId}/users
+        cors: true
+getModulesByEnterprise:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-modules.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_MODULES_BY_ENTERPRISE_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/modules
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+deleteUserByEnterprise:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}delete-user.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):DELETE_USER_BY_ENTERPRISE_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: delete
+        path: enterprises/{enterpriseId}/users/{userId}
+        cors: true
+updateUserStatusById:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-user-status.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_USER_STATUS_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: patch
+        path: enterprises/{enterpriseId}/users/{userId}
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+              userId: true
+        cors: true
+updateUserById:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-user-enterprise.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_USER_ENTERPRISE_ENV}
+  events:
+    - http:
+        method: put
+        path: enterprises/{enterpriseId}/users/{userId}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+sendModuleRequest:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create-request-module.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_REQUEST_MODULE_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: post
+        path: enterprises/{enterpriseId}/modules
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+updateEnterpriseRequestStatus:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-enterprise-request-status.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_ENTERPRISE_REQUEST_STATUS_ENV}
+  events:
+    - http:
+        method: patch
+        path: enterprises-requests/{requestId}
+        request:
+          parameters:
+            paths:
+              requestId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+resendInvitation:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}resend-invitation.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):RESEND_INVITATION_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/users/{userId}/resend-invitation
+        request:
+          parameters:
+            paths:
+              enterprisesId: true
+              userId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseBranding:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-branding.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_BRANDING_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: get
+        path: enterprises/{enterpriseId}/branding
+        request:
+          parameters:
+            paths:
+              enterprisesId: true
+        cors: true
+deleteEnterpriseBranding:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}delete-enterprise-branding.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):DELETE_ENTERPRISE_BRANDING_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: delete
+        path: enterprises/{enterpriseId}/branding
+        request:
+          parameters:
+            paths:
+              enterprisesId: true
+        cors: true
+uploadEnterpriseLogos:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}upload-enterprise-logo.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPLOAD_ENTERPRISE_LOGO_ENV}
+  events:
+    - http:
+        method: put
+        path: enterprises/{enterpriseId}/logo
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        cors: true
+createEnterpriseBranding:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create-enterprise-branding.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_ENTERPRISE_BRANDING_ENV}
+  events:
+    - http:
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+        method: put
+        path: enterprises/{enterpriseId}/branding
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+liberaAdminResendInvitation:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}admin-resend-invitation.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):ADMIN_RESEND_INVITATION_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/resend-invitation
+        request:
+          parameters:
+            paths:
+              enterprisesId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseRequest:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-request.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_REQUEST_ENV}
+  timeout: 15
+  events:
+    - http:
+        method: get
+        path: enterprises-requests
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getProvidersByEnterpriseId:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-providers.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_PROVIDERS_BY_ENTERPRISE_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/providers
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseRequestDetail:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}enterprise-request-detail.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_PROVIDERS_BY_ENTERPRISE_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises-requests/{requestId}
+        request:
+          parameters:
+            paths:
+              requestId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateEnterpriseById:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-enterprise.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_ENTERPRISE_BY_ENTERPRISE_ENV}
+  events:
+    - http:
+        method: put
+        path: enterprises/{enterpriseId}
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseByNIT:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-nit.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):LIST_ENTERPRISE_NIT_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/nit
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseBulkUploadsStatus:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-providers-bulk.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_PROVIDERS_BULK_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/providers/bulk
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+moveBulkFileToS3:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-bulk-file.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):MOVE_BULK_FILE_TO_S3_ENV}
+  events:
+    - http:
+        method: put
+        path: enterprises/{enterpriseId}/providers/file
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+createLinkRequest:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create-link-request.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_LINK_REQUEST_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/providers
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+createEnterpriseLinkBulk:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create-enterprise-link-bulk.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_ENTERPRISE_LINK_BULK_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/providers/bulk
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+tokenVerification:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}token-verification.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):TOKEN_VERIFICATION_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/providers/token-verification
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+setLinkingConfirm:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}set-linking-confirm.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):SET_LINKING_CONFIRM_ENV}
+  events:
+    - http:
+        method: patch
+        path: enterprises/{enterpriseId}/providers/linking-confirm
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+deleteEnterpriseCustomAttribute:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}delete-enterprise-custom-attributes.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):DELETE_ENTERPRISE_CUSTOM_ATTRIBUTE_ENV}
+  events:
+    - http:
+        method: delete
+        path: enterprises/{enterpriseId}/custom-attributes/{attributeId}
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+              attributeId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+addEnterpriseCustomAttribute:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}add-enterprise-custom-attribute.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):ADD_ENTERPRISE_CUSTOM_ATTRIBUTE_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/custom-attributes
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseCustomAttributes:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-custom-attributes.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_CUSTOM_ATTRIBUTE_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/custom-attributes
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseProvidersByHint:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-providers-hint.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_PROVIDERS_BY_HINT_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/links
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getEnterpriseRecord:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}enterprise-record.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_RECORD_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/record
+        request:
+          parameters:
+            paths:
+              enterpriseId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+GetEnterpriseByDocument:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}get-enterprise-by-document.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ENTERPRISE_BY_DOCUMENT_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/document
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+UpdateModulesProducts:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-modules-products.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_MODULES_PRODUCTS_ENV}
+  events:
+    - http:
+        method: put
+        path: enterprises/{enterpriseId}/modules-products
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+postEnterpriseDocumentation:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}post-enterprise-documentation.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):POST_ENTERPRISE_DOCUMENTATION_BY_ENTERPRISE_ID_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/documentation
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateStatusDocument:
+  description: Cron to update current and about to expire documents
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-current-and-about-to-expire-documents.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_CURRENT_AND_ABOUT_TO_EXPIRE_DOCUMENTS_ENV}
+  timeout: 600
+  memorySize: 256
+  events:
+    - schedule:
+        rate: cron(0 15 * * ? *)
+        enabled: true
+sendAboutToExpireDocumentEmail:
+  description: Cron to send email of about to expire documents per enterprise
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}send-email-of-about-to-expire-documents.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_CURRENT_AND_ABOUT_TO_EXPIRE_DOCUMENTS_ENV}
+  timeout: 600
+  memorySize: 256
+  events:
+    - schedule:
+        rate: cron(0 12 * * ? *)
+        enabled: true
+sendDocumentationResolution:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}send-documentation-resolution.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):SEND_DOCUMENTATION_RESOLUTION_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/send-documentation-resolution
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateEnabledEnterprise:
+  description: Cron to update enabled enterprises
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-enabled-enterprises.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_ENABLED_ENTERPRISES_ENV}
+  timeout: 900
+  memorySize: 256
+  events:
+    - schedule:
+        rate: cron(0 12 * * ? *)
+        enabled: true
+getEnterprisesEconomicGroup:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}list-enterprise-economic-group.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):LIST_ENTERPRISE_ECONOMIC_GROUP_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/economic-group-basic-info
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getFinancingPlans:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}get-financing-plans.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_FINANCING_PLANS_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/financing-plans
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+createFinancingPlan:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}create-financing-plan.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_FINANCING_PLANS_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/financing-plans
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getFinancingPlanDetail:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}get-financing-plan-detail.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):FINANCING_PLAN_DETAIL_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/{enterpriseId}/financing-plans/{financingPlanId}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateFinancingPlanStatus:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-status-financing-plan.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_STATUS_FINANCING_PLAN_ENV}
+  events:
+    - http:
+        method: patch
+        path: enterprises/{enterpriseId}/financing-plans/{financingPlanId}/status
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateFinancingPlansStatus:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}update-financing-plans-status.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_STATUS_FINANCING_PLANS_ENV}
+  description: Cron to update current and about to expire financing plans
+  timeout: 600
+  memorySize: 256
+  events:
+    - schedule:
+        rate: cron(0 15 * * ? *)
+        enabled: true
+getLatestTermsAndConditions:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}get-latest-terms.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LATEST_TERMS_ENV}
+  events:
+    - http:
+        method: get
+        path: enterprises/terms-and-conditions
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+acceptTermsAndConditions:
+  handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}accept-terms.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):ACCEPT_TERMS_ENV}
+  events:
+    - http:
+        method: post
+        path: enterprises/{enterpriseId}/terms-and-conditions
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getProviderGeneralData:
+    handler: ${self:custom.prefix_module, 'src/functions/enterprises/'}get-provider-general-data.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_PROVIDER_GENERAL_DATA_ENV}
+    events:
+      - http:
+          method: get
+          path: enterprises/{enterpriseId}/providers/{providerId}/general-data
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer

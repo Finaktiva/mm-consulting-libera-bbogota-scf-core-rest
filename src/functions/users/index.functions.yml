@@ -1,0 +1,81 @@
+createLiberaUser:
+    handler: ${self:custom.prefix_module, 'src/functions/users/'}create-libera-user.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_LIBERA_USER_ENV}
+    events:
+      - http:
+          method: post
+          path: users
+          cors: true
+          authorizer:   
+            type: CUSTOM
+            authorizerId: 
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+deleteLiberaUserById:
+    handler: ${self:custom.prefix_module, 'src/functions/users/'}delete-libera-user.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):DELETE_LIBERA_USER_ENV}
+    events:
+      - http:
+          method: delete
+          path: users/{userId}
+          cors: true
+          request:
+              parameters:
+                paths:
+                  userId: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId: 
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getLiberaUsers:
+    handler: ${self:custom.prefix_module, 'src/functions/users/'}list-libera-users.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LIBERA_USERS_ENV}
+    events:
+      - http:
+          method: get
+          path: users
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId: 
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+resendInvitationLibera:
+    handler: ${self:custom.prefix_module, 'src/functions/users/'}libera-resend-invitation.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):RESEND_INVITATION_LIBERA_ENV}
+    events:
+      - http:
+          method: post
+          path: /users/{userId}/resend-invitation
+          request:
+              parameters:
+                paths:
+                  userId: true
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId: 
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+updateLiberaUserById:
+    handler: ${self:custom.prefix_module, 'src/functions/users/'}update-libera-user.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_LIBERA_USER_ENV}
+    events:
+      - http:
+          method: put
+          path: users/{userId}
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId: 
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+updateLiberaUserStatusById:
+    handler: ${self:custom.prefix_module, 'src/functions/users/'}update-libera-user-status.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_LIBERA_USER_STATUS_ENV}
+    events:
+      - http:
+          method: patch
+          path: users/{userId}/status
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId: 
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer

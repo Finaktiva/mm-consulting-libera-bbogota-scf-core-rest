@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.47">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.47" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.47.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.47.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.47.3">
+		<!-- Change set for Other Tables DDL -->
+        
+        <sql>
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST DROP FOREIGN KEY FK_6_QUOTA_TRANSACTION;
+        </sql>
+
+        <sql>
+            ALTER TABLE ENTERPRISE_INVOICE_FUNDING_PROCESS DROP FOREIGN KEY FK_FUNDING_TRANSACTION_3;
+        </sql>
+
+        <sql>
+            ALTER TABLE ENTERPRISE_FUNDING_TRANSACTIONS MODIFY COLUMN ID bigint(20) NOT NULL AUTO_INCREMENT;
+        </sql>
+
+        <sql>
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST ADD CONSTRAINT FK_6_QUOTA_TRANSACTION FOREIGN KEY (ENTERPRISE_FUNDING_TRANSACTION_ID) REFERENCES ENTERPRISE_FUNDING_TRANSACTIONS(ID);
+        </sql>
+
+        <sql>
+            ALTER TABLE ENTERPRISE_INVOICE_FUNDING_PROCESS ADD CONSTRAINT FK_FUNDING_TRANSACTION_3 FOREIGN KEY (FUNDING_TRANSACTION_ID) REFERENCES ENTERPRISE_FUNDING_TRANSACTIONS(ID);
+        </sql>
+
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.47.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

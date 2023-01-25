@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.32">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.32" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.3">
+		<!-- Change set for Other Tables DDL -->
+        
+        <dropTable tableName="ENTERPRISE_INVOICE_PROVIDER" />
+        <dropColumn tableName="ENTERPRISE_INVOICE" columnName="EXPEDITION_DATE" />
+        <dropColumn tableName="ENTERPRISE_INVOICE" columnName="ALTERNATIVE_ID" />
+        <dropColumn tableName="ENTERPRISE_INVOICE" columnName="PAYED_IN_ADVANCE" />
+        <dropColumn tableName="ENTERPRISE_INVOICE" columnName="VERSION" />
+        <dropColumn tableName="ENTERPRISE_INVOICE" columnName="IVA" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="PAYMENT_TYPE" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="EFFECTIVE_PAYMENT_DATE" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="PAYER_REQUESTED_DISCOUNT_VIGENCY_FROM" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="PAYER_REQUESTED_DISCOUNT_VIGENCY_UNTIL" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="PROVIDER_REQUESTED_DISCOUNT_VIGENCY_FROM" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="PROVIDER_REQUESTED_DISCOUNT_VIGENCY_UNTIL" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="AGREED_EXPECTED_PAYMENT_VIGENCY_FROM" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="AGREED_EXPECTED_PAYMENT_VIGENCY_UNTIL" />
+
+        <addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="EMISSION_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="ALTERNATIVE_INVOICE_NUMBER" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="VAT" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        
+        <addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="ADVANCE_PAYMENT" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="PROVIDER_ID" type="BIGINT">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="PAYER_REQUESTED_DISCOUNT_DUE_DATE" type="DATETIME">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="PAYER_REQUESTED_PAYMENT_DATE" type="DATETIME">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="PROVIDER_REQUESTED_DISCOUNT_DUE_DATE" type="DATETIME">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="PROVIDER_REQUESTED_PAYMENT_DATE" type="DATETIME">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="AGREED_EXPECTED_PAYMENT_DATE" type="DATETIME">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint constraintName="FK_INVOICE_PROVIDERS_4"
+	  	baseTableName="ENTERPRISE_INVOICE" baseColumnNames="PROVIDER_ID"
+	  	referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+	  	deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+	  	onUpdate="RESTRICT" />  
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.97">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.97" />
+	</changeSet>
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.97.1">
+		<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.97.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+		
+	<changeSet author="Daniel Ledezma" id="changelog-1.97.3">
+		<!-- Change set for Other Tables DDL -->
+		<createTable tableName="REL_USER_BANK_REGION">
+			<column name="USER_ID" type="BIGINT(20)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+	
+			<column name="BANK_REGION_ID" type="BIGINT(20)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>			
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK0_REL_BR_USER"
+			baseTableName="REL_USER_BANK_REGION" baseColumnNames="USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT" />
+		
+		<addForeignKeyConstraint constraintName="FK1_REL_BR_CAT_BANK_REGION"
+			baseTableName="REL_USER_BANK_REGION" baseColumnNames="BANK_REGION_ID"
+			referencedTableName="CAT_BANK_REGION" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT" />
+
+	</changeSet>
+
+	<changeSet author="Daniel Ledezma" id="changelog-1.97.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

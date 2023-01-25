@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="rafael-santos" id="changelog-1.68">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.68" />
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.68.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.68.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.68.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<createTable tableName="ENTERPRISE_LINKS_DISBURSEMENT_CONTRACT">
+			<column name="ENTERPRISE_LINK_ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DISBURSEMENT_TYPE" type="VARCHAR(15)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCOUNT_TYPE" type="VARCHAR(7)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="ACCOUNT_NUMBER" type="VARCHAR(20)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="BANK_ID" type="VARCHAR(3)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="BANK_CERTIFICATION_FILE_ID" type="BIGINT" >
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK1_ELINKS_DISBURSEMENT_CONTRACT"
+			baseTableName="ENTERPRISE_LINKS_DISBURSEMENT_CONTRACT" baseColumnNames="ENTERPRISE_LINK_ID"
+			referencedTableName="ENTERPRISE_LINKS" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+		
+		<addForeignKeyConstraint constraintName="FK2_ELINKS_DISBURSEMENT_CONTRACT_BANKS"
+			baseTableName="ENTERPRISE_LINKS_DISBURSEMENT_CONTRACT" baseColumnNames="BANK_ID"
+			referencedTableName="BANKS" referencedColumnNames="STR_CODIGO_BANCO"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK3_ELINKS_DISBURSEMENT_CONTRACT_S3"
+			baseTableName="ENTERPRISE_LINKS_DISBURSEMENT_CONTRACT" baseColumnNames="BANK_CERTIFICATION_FILE_ID"
+			referencedTableName="S3_METADATA" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+		
+		<sql>	
+			ALTER TABLE ENTERPRISE ADD COLUMN COMES_FROM_API BIT(1) DEFAULT 0;
+		</sql>
+	
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.68.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

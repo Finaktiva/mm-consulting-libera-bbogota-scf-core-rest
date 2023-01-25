@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="monica-sanchez" id="changelog-1.37">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.37" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.37.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.37.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.37.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<createTable tableName="ENTERPRISE_INVOICE_BULK">
+			<column name="ID" type="BIGINT"  autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="S3_METADATA_ID" type="BIGINT" >
+				<constraints nullable="true"/>
+			</column>
+			<column name="ENTERPRISE_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="STATUS" type="VARCHAR(40)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="FOLIO_NUMBER" type="VARCHAR(40)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="INITIAL_LOAD_COUNT" type="INTEGER" >
+				<constraints nullable="true" />
+			</column>
+			<column name="SUCCESSFUL_LOADED_COUNT" type="INTEGER" >
+				<constraints nullable="true" />
+			</column>
+			<column name="ERROR_LOADED_COUNT" type="INTEGER" >
+				<constraints nullable="true" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_USER" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="ENTERPRISE_INVOICE_BULK_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="PAYMENT_SPECIFICATIONS" type="VARCHAR(250)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="CURRENT_EXPECTED_PAYMENT_DATE" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="CURRENT_DISCOUNT_PERCENTAGE" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="CURRENT_AMOUNT" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="EFFECTIVE_PAYMENT_DATE" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="EFFECTIVE_PAYMENT_AMOUNT" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<createTable tableName="ENTERPRISE_INVOICE_FUNDING_PROCESS">
+			<column name="FUNDING_PROCESS_ID" type="BIGINT" autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="ENTERPRISE_INVOICE_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="LENDER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_USER" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="FINISHED_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+			<column name="STATUS" type="VARCHAR(40)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="BPM_PROCESS_INSTANCE_ID" type="BIGINT" >
+				<constraints nullable="true" />
+			</column>
+			<column name="LENDER_REJECTION_COMMENTS" type="VARCHAR(250)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="LENDER_REJECTION_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+			<column name="LENDER_PAYMENT_CONFIRM_COMMENTS" type="VARCHAR(250)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="LENDER_CONFIRMATION_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+			<column name="LENDER_EFFECTIVE_PAYMENT_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+			<column name="LENDER_EFFECTIVE_PAYMENT_AMOUNT" type="INTEGER" >
+				<constraints nullable="true" />
+			</column>
+			<column name="PROVIDER_PAYMENT_CONFIRM_COMMENTS" type="VARCHAR(250)" >
+				<constraints nullable="true" />
+			</column>
+			<column name="PROVIDER_CONFIRMATION_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+			<column name="PROVIDER_EFFECTIVE_PAYMENT_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+			<column name="PROVIDER_EFFECTIVE_PAYMENT_AMOUNT" type="INTEGER" >
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+
+		<createTable tableName="ENTERPRISE_INVOICE_FILES">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="ENTERPRISE_INVOICE_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="S3_METADATA_ID" type="BIGINT" >
+				<constraints nullable="true" primaryKey="true"/>
+			</column>
+			<column name="FUNDING_PROCESS_ID" type="BIGINT" >
+				<constraints nullable="true" />
+			</column>
+			<column name="TYPE" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_USER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<!-- ENTERPRISE_INVOICE -->
+		<addForeignKeyConstraint constraintName="FK_INVOICE_BULK_6"
+			baseTableName="ENTERPRISE_INVOICE" baseColumnNames="ENTERPRISE_INVOICE_BULK_ID"
+			referencedTableName="ENTERPRISE_INVOICE_BULK" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<!-- ENTERPRISE_INVOICE_FILES -->
+		<addForeignKeyConstraint constraintName="FK_INVOICE_FILES_METADATA_1"
+			baseTableName="ENTERPRISE_INVOICE_FILES" baseColumnNames="S3_METADATA_ID"
+			referencedTableName="S3_METADATA" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+			
+		<addForeignKeyConstraint constraintName="FK_INVOICE"
+			baseTableName="ENTERPRISE_INVOICE_FILES" baseColumnNames="ENTERPRISE_INVOICE_ID"
+			referencedTableName="ENTERPRISE_INVOICE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_INVOICE_FUNDING_PROCESS_2"
+            baseTableName="ENTERPRISE_INVOICE_FILES" baseColumnNames="FUNDING_PROCESS_ID"
+            referencedTableName="ENTERPRISE_INVOICE_FUNDING_PROCESS" referencedColumnNames="FUNDING_PROCESS_ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_FILES_USER_3"
+			baseTableName="ENTERPRISE_INVOICE_FILES" baseColumnNames="CREATION_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<!-- ENTERPRISE_INVOICE_FUNDING_PROCESS -->
+		<addForeignKeyConstraint constraintName="FK_FUNDING_ENTERPRISE_1"
+            baseTableName="ENTERPRISE_INVOICE_FUNDING_PROCESS" baseColumnNames="LENDER_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_FUNDING_USER_2"
+			baseTableName="ENTERPRISE_INVOICE_FUNDING_PROCESS" baseColumnNames="CREATION_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<!-- ENTERPRISE_INVOICE_BULK -->
+		<addForeignKeyConstraint constraintName="FK_INVOICE_BULK_METADATA_1"
+			baseTableName="ENTERPRISE_INVOICE_BULK" baseColumnNames="S3_METADATA_ID"
+			referencedTableName="S3_METADATA" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_INVOICE_BULK_ENTERPRISE_2"
+			baseTableName="ENTERPRISE_INVOICE_BULK" baseColumnNames="ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>	
+
+		<addForeignKeyConstraint constraintName="FK_INVOICE_BULK_USER_2"
+			baseTableName="ENTERPRISE_INVOICE_BULK" baseColumnNames="CREATION_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.37.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.53">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.53" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.53.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.53.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.53.3">
+		<!-- Change set for Other Tables DDL -->
+        <dropColumn 
+            columnName="VALUE"
+            tableName="LENDER_CUSTOM_ATTRIBUTES"/>
+		
+		<addColumn
+            tableName="LENDER_CUSTOM_ATTRIBUTES">
+        	<column name="STATUS" type="varchar(15)">
+				<constraints nullable="false"/>
+			</column>	
+    	</addColumn>
+
+		<addColumn
+            tableName="ANSWER_CUSTOM_ATTRIBUTES">
+        	<column name="ATTRIBUTE_LINK_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>	
+    	</addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_ANSWER_CUSTOM_ATTRIBUTES_LINK_1"
+			baseTableName="ANSWER_CUSTOM_ATTRIBUTES" baseColumnNames="ATTRIBUTE_LINK_ID"
+			referencedTableName="LENDER_CUSTOM_ATTRIBUTES_LINK" referencedColumnNames="LENDER_CUSTOM_ATTRIBUTE_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.53.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

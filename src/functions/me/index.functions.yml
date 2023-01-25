@@ -1,0 +1,62 @@
+getUserDetail:
+    handler: ${self:custom.prefix_module, 'src/functions/me/'}list-user-detail.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_USER_DETAIL_ENV}
+    events:
+      - http:
+          method: get
+          path: me/account
+          cors: true
+          authorizer:
+             type: CUSTOM
+             authorizerId:
+               'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+updateUserDetail:
+    handler: ${self:custom.prefix_module, 'src/functions/me/'}update.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_USER_DETAIL_ENV}
+    events:
+      - http:
+          method: put
+          path: me/account
+          cors: true
+          authorizer:
+             type: CUSTOM
+             authorizerId:
+               'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+              
+getLanguage:
+    handler: ${self:custom.prefix_module, 'src/functions/me/'}get-language.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_USER_LANGUAGE_ENV}
+    events:
+      - http:
+          method: get
+          path: me/language
+          cors: true
+          authorizer:
+             type: CUSTOM
+             authorizerId:
+               'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+saveLanguage:
+    handler: ${self:custom.prefix_module, 'src/functions/me/'}save-language.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):SAVE_LANGUAGE_ENV}
+    events:
+      - http:
+          method: put
+          path: me/language
+          cors: true
+          authorizer:
+             type: CUSTOM
+             authorizerId:
+               'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getRolesPermissions:
+    handler: ${self:custom.prefix_module, 'src/functions/me/'}get-roles-permissions.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ROLES_PERMISSIONS_ENV}
+    events:
+      - http:
+          method: get
+          path: me/roles
+          cors: true
+          authorizer:
+             type: CUSTOM
+             authorizerId:
+               'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer

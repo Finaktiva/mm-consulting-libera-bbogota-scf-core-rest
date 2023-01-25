@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "triggerSource": "CustomMessage_ForgotPassword",
+    "region": "us-west-2",
+    "userPoolId": "us-west-2_s0z6k1ipU",
+    "userName": "erilofe1@gmail.com",
+    "callerContext": {
+        "awsSdkVersion": "string",
+        "clientId": "58hvefr86km8ceriv7u3s02ll5"
+    },
+    "request": {
+        "userAttributes": {
+            "email" : "erilofe1@gmail.com"
+        },
+        "codeParameter": "{1234}",
+        "usernameParameter": "erilofe1@gmail.com"
+    },
+    "response": {
+        "emailMessage": "<custom message to be sent in the message with code parameter and username parameter>",
+        "emailSubject": "<custom email subject>"
+    }
+  }

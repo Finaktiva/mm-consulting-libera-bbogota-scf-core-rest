@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.42">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.42" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.42.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.42.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.42.3">
+		<!-- Change set for Other Tables DDL -->
+
+        <createTable tableName="ENTERPRISE_QUOTA_REQUEST">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="PAYER_ENTERPRISE_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="LENDER_ENTERPRISE_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_USER" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="UPDATE_DATE" type="DATETIME">
+				<constraints nullable="true"/>
+			</column>
+			<column name="UPDATE_USER" type="BIGINT">
+				<constraints nullable="true"/>
+			</column>
+			<column name="STATUS" type="VARCHAR(40)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="RATE_TYPE" type="VARCHAR(40)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="RATE_PERCENTAGE" type="INTEGER">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PAYER_COMMENTS" type="VARCHAR(250)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="LENDER_COMMENTS" type="VARCHAR(250)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TYPE" type="VARCHAR(40)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="APPROVAL_USER" type="BIGINT">
+				<constraints nullable="true" />
+			</column>
+			<column name="APPROVAL_DATE" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="PAYER_REQUEST_AMOUNT" type="INTEGER">
+				<constraints nullable="false" />
+			</column>
+			<column name="LENDER_GRANTED_AMOUNT" type="INTEGER">
+				<constraints nullable="true" />
+			</column>
+			<column name="ENTERPRISE_FUNDING_TRANSACTION_ID" type="BIGINT">
+				<constraints nullable="true" />
+			</column>
+        </createTable>
+
+		<createTable tableName="ENTERPRISE_FUNDING_TRANSACTIONS">
+			<column name="ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="PAYER_ENTERPRISE_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="LENDER_ENTERPRISE_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_USER" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="VARCHAR(25)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STATUS" type="VARCHAR(25)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AMOUNT" type="INTEGER">
+				<constraints nullable="false" />
+			</column>
+			<column name="LENDER_COMMENTS" type="VARCHAR(250)">
+				<constraints nullable="true" />
+			</column>
+			<column name="APPROVAL_USER" type="BIGINT">
+				<constraints nullable="true" />
+			</column>
+			<column name="APPROVAL_DATE" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="ENTERPRISE_INVOICE_ID" type="BIGINT">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+
+		
+		<addForeignKeyConstraint constraintName="FK_1_FUNDING_ENTERPRISE_PAYER"
+			baseTableName="ENTERPRISE_QUOTA_REQUEST" baseColumnNames="PAYER_ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+		
+		<addForeignKeyConstraint constraintName="FK_2_FUNDING_ENTERPRISE_LENDER"
+			baseTableName="ENTERPRISE_QUOTA_REQUEST" baseColumnNames="LENDER_ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_3_FUNDING_USER"
+			baseTableName="ENTERPRISE_QUOTA_REQUEST" baseColumnNames="APPROVAL_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_4_FUNDING_USER"
+			baseTableName="ENTERPRISE_QUOTA_REQUEST" baseColumnNames="UPDATE_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_5_FUNDING_USER"
+			baseTableName="ENTERPRISE_QUOTA_REQUEST" baseColumnNames="CREATION_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_1_TRANSACTION_PAYER"
+			baseTableName="ENTERPRISE_FUNDING_TRANSACTIONS" baseColumnNames="PAYER_ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE_FUNDING_LINK" referencedColumnNames="PAYER_ENTERPRISE_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_2_TRANSACTION_LENDER"
+			baseTableName="ENTERPRISE_FUNDING_TRANSACTIONS" baseColumnNames="LENDER_ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE_FUNDING_LINK" referencedColumnNames="LENDER_ENTERPRISE_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_3_TRANSACTION_USER"
+			baseTableName="ENTERPRISE_FUNDING_TRANSACTIONS" baseColumnNames="CREATION_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_4_TRANSACTION_INVOICE"
+			baseTableName="ENTERPRISE_FUNDING_TRANSACTIONS" baseColumnNames="ENTERPRISE_INVOICE_ID"
+			referencedTableName="ENTERPRISE_INVOICE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_5_TRANSACTION_USER"
+			baseTableName="ENTERPRISE_FUNDING_TRANSACTIONS" baseColumnNames="APPROVAL_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_6_QUOTA_TRANSACTION"
+			baseTableName="ENTERPRISE_QUOTA_REQUEST" baseColumnNames="ENTERPRISE_FUNDING_TRANSACTION_ID"
+			referencedTableName="ENTERPRISE_FUNDING_TRANSACTIONS" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.42.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 
+

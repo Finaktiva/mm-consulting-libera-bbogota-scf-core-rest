@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="omar-ramirez-ramirez" id="changelog-1.22">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.22" />
+	</changeSet>
+
+	<changeSet author="omar-ramirez-ramirez" id="changelog-1.22.1">
+		<!-- Change set for Catalogs DDL -->        
+	</changeSet>
+
+	<changeSet author="omar-ramirez-ramirez" id="changelog-1.22.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="omar-ramirez-ramirez" id="changelog-1.22.3">
+		<!-- Change set for Other Tables DDL -->
+     
+		<addColumn tableName="ENTERPRISE_REQUEST">
+            <column name="ENTERPRISE_REQUEST_BULK_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_REQUEST">
+            <column name="BPM_PROCESS_INSTANCE_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_REQUEST_4"
+				baseTableName="ENTERPRISE_REQUEST" baseColumnNames="ENTERPRISE_REQUEST_BULK_ID"
+				referencedTableName="ENTERPRISE_REQUEST_BULK" referencedColumnNames="ID"
+				deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+				onUpdate="RESTRICT"/>
+       
+	</changeSet>
+
+	<changeSet author="omar-ramirez-ramirez" id="changelog-1.22.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

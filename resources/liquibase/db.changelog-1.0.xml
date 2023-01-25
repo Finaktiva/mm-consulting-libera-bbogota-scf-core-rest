@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="omar-ramirez" id="changelog-1.0">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.0" />
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.0.1">
+			<!-- Change set for Catalogs DDL -->
+
+		<createTable tableName="ROLE">
+			<column name="NAME" type="VARCHAR(100)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+		</createTable>
+
+		<createTable tableName="CAT_TOKEN_TYPE">
+			<column name="TYPE" type="VARCHAR(100)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+		</createTable>
+
+		<createTable tableName="REQUEST_TYPE">
+			<column name="NAME" type="VARCHAR(100)" >
+				<constraints nullable="false" unique="true" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+		</createTable>
+
+		<createTable tableName="CAT_MODULE">
+			<column name="NAME" type="VARCHAR(100)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+		</createTable>
+
+		<createTable tableName="CAT_NOTIFICATION_TYPE">
+			<column name="CODE" type="VARCHAR(100)" >
+				<constraints nullable="false" unique="true" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+		</createTable>
+
+		<createTable tableName="CAT_DOCUMENT_TYPE">
+			<column name="CODE" type="VARCHAR(100)" >
+				<constraints nullable="false" unique="true" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+			<column name="TEMPLATE_URL" type="VARCHAR(355)" />
+		</createTable>
+
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.0.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.0.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<createTable tableName="USER">
+			<column name="ID" type="BIGINT" autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="EMAIL" type="VARCHAR(75)" >
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="STATUS" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="MODIFICATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="VARCHAR(75)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTERPRISE_ID" type="BIGINT">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+
+		<createTable tableName="ENTERPRISE">
+			<column name="ID" type="BIGINT" autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="NIT" type="VARCHAR(80)" >
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ENTERPRISE_NAME" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="OWNER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="STATUS" type="VARCHAR(50)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="COMMENT" type="VARCHAR(255)" />
+			<column name="CREATION_USER" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_0"
+			baseTableName="ENTERPRISE" baseColumnNames="OWNER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_1"
+			baseTableName="ENTERPRISE" baseColumnNames="CREATION_USER"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<addForeignKeyConstraint constraintName="FK_USER_0"
+			baseTableName="USER" baseColumnNames="ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+		
+		<createTable tableName="USER_PROPERTIES">
+			<column name="USER_ID" type="BIGINT" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="NAME" type="VARCHAR(100)" />
+			<column name="FIRST_SURNAME" type="VARCHAR(100)" />
+			<column name="SECOND_SURNAME" type="VARCHAR(100)" />
+			<column name="CREATED_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="MODIFIED_DATE" type="DATETIME" />
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_USER_PROPERTIES_0"
+            baseTableName="USER_PROPERTIES" baseColumnNames="USER_ID"
+            referencedTableName="USER" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+						onUpdate="RESTRICT" />
+
+		<createTable tableName="USER_ROLE">
+			<column name="ROLE" type="VARCHAR(100)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="USER_ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="FK_ROLE_USER_0"
+			baseTableName="USER_ROLE" baseColumnNames="ROLE"
+			referencedTableName="ROLE" referencedColumnNames="NAME"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<addForeignKeyConstraint constraintName="FK_USER_USER_1"
+			baseTableName="USER_ROLE" baseColumnNames="USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<createTable tableName="USER_TOKEN">
+			<column name="TOKEN_TYPE" type="VARCHAR(100)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="USER_ID" type="BIGINT" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="TOKEN" type="VARCHAR(70)" >
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="EXPIRATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_USER_TOKEN_0"
+			baseTableName="USER_TOKEN" baseColumnNames="USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+				
+				<addForeignKeyConstraint constraintName="FK_USER_TOKEN_1"
+			baseTableName="USER_TOKEN" baseColumnNames="TOKEN_TYPE"
+			referencedTableName="CAT_TOKEN_TYPE" referencedColumnNames="TYPE"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<createTable tableName="S3_METADATA">
+			<column name="ID" type="BIGINT" autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="BUCKET_NAME" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="FILENAME" type="VARCHAR(255)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="FILE_KEY" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="REQUEST">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="MODIFICATION_DATE" type="DATETIME" />
+			<column name="TYPE" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="S3_METADATA" type="BIGINT" />
+			<column name="STATUS" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>				
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_REQUEST_0"
+            baseTableName="REQUEST" baseColumnNames="TYPE"
+            referencedTableName="REQUEST_TYPE" referencedColumnNames="NAME"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+		
+		<addForeignKeyConstraint constraintName="FK_REQUEST_1"
+            baseTableName="REQUEST" baseColumnNames="S3_METADATA"
+            referencedTableName="S3_METADATA" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+		<createTable tableName="ENTERPRISE_MODULE">
+			<column name="ENTERPRISE_ID" type="BIGINT" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="MODULE" type="VARCHAR(100)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="STATUS" type="VARCHAR(50)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_MODULE_0"
+			baseTableName="ENTERPRISE_MODULE" baseColumnNames="ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_MODULE_1"
+			baseTableName="ENTERPRISE_MODULE" baseColumnNames="MODULE"
+			referencedTableName="CAT_MODULE" referencedColumnNames="NAME"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<createTable tableName="ENTERPRISE_DOCUMENTATION">
+			<column name="ID" type="BIGINT" autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="MODIFICATION_DATE" type="DATETIME" />
+			<column name="TYPE" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="S3_METADATA_ID" type="BIGINT" />
+			<column name="STATUS" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTERPRISE_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="COMMENT" type="VARCHAR(255)" />
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_DOCUMENTATION_0"
+			baseTableName="ENTERPRISE_DOCUMENTATION" baseColumnNames="TYPE"
+			referencedTableName="CAT_DOCUMENT_TYPE" referencedColumnNames="CODE"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+		
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_DOCUMENTATION_1"
+			baseTableName="ENTERPRISE_DOCUMENTATION" baseColumnNames="S3_METADATA_ID"
+			referencedTableName="S3_METADATA" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+				
+		<createTable tableName="USER_MODULE">
+			<column name="MODULE" type="VARCHAR(100)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="USER_ID" type="BIGINT" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_USER_MODULE_0"
+            baseTableName="USER_MODULE" baseColumnNames="MODULE"
+            referencedTableName="CAT_MODULE" referencedColumnNames="NAME"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+						onUpdate="RESTRICT" />
+		
+		<addForeignKeyConstraint constraintName="FK_USER_MODULE_1"
+            baseTableName="USER_MODULE" baseColumnNames="USER_ID"
+            referencedTableName="USER" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+						onUpdate="RESTRICT" />
+
+		<createTable tableName="NOTIFICATION">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="SUBJECT" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="MESSAGE" type="VARCHAR(255)" />
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="SEEN" type="TINYINT" defaultValue="0">
+				<constraints nullable="false" />
+			</column>
+			<column name="NOTIFICATION_TYPE" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="USER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_NOTIFICATION_0"
+			baseTableName="NOTIFICATION" baseColumnNames="NOTIFICATION_TYPE"
+			referencedTableName="CAT_NOTIFICATION_TYPE" referencedColumnNames="CODE"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+		<addForeignKeyConstraint constraintName="FK_NOTIFICATION_1"
+			baseTableName="NOTIFICATION" baseColumnNames="USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.0.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

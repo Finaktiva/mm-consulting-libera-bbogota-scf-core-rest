@@ -1,0 +1,235 @@
+confirmPayment:
+  handler: ${self:custom.prefix_module, 'src/functions/lenders/'}lender-confirm-payment.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):LENDER_CONFIRM_PAYMENT_ENV}
+  events:
+    - http:
+        method: patch
+        path: lenders/{enterpriseId}/funding-requests/{requestId}/status
+        request:
+            parameters:
+              paths:
+                enterpriseId: true
+                requestId: true
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getLenderListRequestFunds:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}get-lender-list-request-funds.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LENDER_LIST_REQUEST_FUNDS_ENV}
+    events:
+      - http:
+          method: get
+          path: lenders/{enterpriseId}/invoices
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+getLenderFundingRequestsDetails:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}get-lender-funding-requests-details.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LENDER_FUNDING_REQUESTS_DETAILS_ENV}
+    events:
+      - http:
+          method: get
+          path: lenders/{enterpriseId}/invoices/{invoiceId}
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getLenderQuotaRequests:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}get-lender-quota-requests.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LENDER_QUOTA_REQUESTS_ENV}
+    events:
+      - http:
+          method: get
+          path: lenders/{enterpriseId}/quota-requests
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+getLenderPayers:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}get-lender-payers.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LENDER_PAYERS_ENV}
+    events:
+      - http:
+          method: get
+          path: lenders/{enterpriseId}/payers
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+getLenderCustomAttributes:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}get-lender-custom-attributes.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LENDER_CUSTOM_ATTRIBUTES_ENV}
+    events:
+      - http:
+          method: get
+          path: lenders/{enterpriseId}/custom-attributes
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+createLenderCustomAttribute:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}create-lender-custom-attribute.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_LENDER_CUSTOM_ATTRIBUTE_ENV}
+    events:
+      - http:
+          method: post
+          path: lenders/{enterpriseId}/custom-attributes
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer 
+              
+updateLenderQuotaRequest:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}update-lender-quota-request.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_LENDER_QUOTA_REQUEST_ENV}
+    events:
+      - http:
+          method: put
+          path: lenders/{enterpriseId}/quota-requests/{requestId}
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+                  requestId: true
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer  
+
+deleteLenderCustomAttribute:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}delete-lender-custom-attribute.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):DELETE_LENDER_CUSTOM_ATTRIBUTE_ENV}
+    events:
+      - http:
+          method: delete
+          path: lenders/{enterpriseId}/custom-attributes/{customAttributeId}
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+                  customAttributeId: true
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+getLenderPayerById:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}get-lender-payer.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LENDER_PAYER_ENV}
+    events:
+      - http:
+          method: get
+          path: lenders/{enterpriseId}/payers/{payerId}
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+                  payerId: true
+          cors: true
+          authorizer: 
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+updateLenderPayerAttributes:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}update-lender-payer-attribute.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_LENDER_PAYER_ATTRIBUTE_ENV}
+    events:
+      - http:
+          method: post
+          path: lenders/{enterpriseId}/payers/{payerId}/custom-attributes
+          request:
+              parameters:
+                  paths:
+                    enterpriseId: true
+                    payerId: true
+          cors: true
+          authorizer: 
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+              
+getAvailableLenders:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}get-lenders-available.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_LENDERS_AVAILABLE_ENV}
+    events:
+      - http:
+          method: get
+          path: lenders
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+deleteLenderPayerAttributes:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}delete-lender-payer-custom-attribute.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):DELETE_LENDER_PAYER_CUSTOM_ATTRIBUTE_ENV}
+    events:
+      - http:
+          method: delete
+          path: lenders/{enterpriseId}/payers/{payerId}/custom-attributes/{customAttributeId}
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+                  payerId: true
+                  customAttributeId: true
+          cors: true
+          authorizer:  
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+              
+updateLenderQuotaRequestStatus:
+    handler: ${self:custom.prefix_module, 'src/functions/lenders/'}update-lender-quota-request-status.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_LENDER_QUOTA_REQUEST_STATUS_ENV}
+    events:
+      - http:
+          method: patch
+          path: lenders/{enterpriseId}/quota-requests/{requestId}/status
+          request:
+              parameters:
+                paths:
+                  enterpriseId: true
+                  requestId: true
+          cors: true
+          authorizer: 
+            type: CUSTOM
+            authorizerId:
+              'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer

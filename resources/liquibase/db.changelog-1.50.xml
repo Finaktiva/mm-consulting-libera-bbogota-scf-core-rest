@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.50">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.50" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.50.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.50.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.50.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<sql>			
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP FOREIGN KEY FK_ENTERPRISE_FUNDING_LINK_3;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP FOREIGN KEY FK_ENTERPRISE_FUNDING_LINK_2;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP COLUMN PAYER_ENTERPRISE_ID;
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK DROP COLUMN LENDER_ENTERPRISE_ID;
+			ALTER TABLE ENTERPRISE_FUNDING_TRANSACTIONS DROP FOREIGN KEY FK_2_TRANSACTION_LENDER;
+			ALTER TABLE ENTERPRISE_FUNDING_TRANSACTIONS DROP FOREIGN KEY FK_1_TRANSACTION_PAYER;
+			ALTER TABLE ENTERPRISE_FUNDING_TRANSACTIONS DROP COLUMN PAYER_ENTERPRISE_ID;
+			ALTER TABLE ENTERPRISE_FUNDING_TRANSACTIONS DROP COLUMN LENDER_ENTERPRISE_ID;
+			ALTER TABLE ENTERPRISE_FUNDING_LINK DROP FOREIGN KEY FK_FUNDING_LINK_LENDER_2;
+			ALTER TABLE ENTERPRISE_FUNDING_LINK DROP FOREIGN KEY FK_FUNDING_ENTERPRISE_2;
+			ALTER TABLE ENTERPRISE_FUNDING_LINK DROP PRIMARY KEY;
+			ALTER TABLE ENTERPRISE_FUNDING_LINK ADD ID BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY;
+			ALTER TABLE ENTERPRISE_FUNDING_LINK ADD CONSTRAINT FK_FUNDING_ENTERPRISE_2 FOREIGN KEY (PAYER_ENTERPRISE_ID) REFERENCES ENTERPRISE(ID);
+			ALTER TABLE ENTERPRISE_FUNDING_LINK ADD CONSTRAINT FK_FUNDING_LINK_LENDER_2 FOREIGN KEY (LENDER_ENTERPRISE_ID) REFERENCES ENTERPRISE(ID);
+		</sql>
+
+		<addColumn 
+            tableName="ENTERPRISE_FUNDING_TRANSACTIONS">
+        	<column name="ENTERPRISE_FUNDING_LINK_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+    	</addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_TRANSACTION_FUNDING_1"
+			baseTableName="ENTERPRISE_FUNDING_TRANSACTIONS" baseColumnNames="ENTERPRISE_FUNDING_LINK_ID"
+			referencedTableName="ENTERPRISE_FUNDING_LINK" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+
+		<addColumn 
+            tableName="LENDER_CUSTOM_ATTRIBUTES_LINK">
+        	<column name="ENTERPRISE_FUNDING_LINK_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+    	</addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_FUNDING_LINK_ID_2"
+			baseTableName="LENDER_CUSTOM_ATTRIBUTES_LINK" baseColumnNames="ENTERPRISE_FUNDING_LINK_ID"
+			referencedTableName="ENTERPRISE_FUNDING_LINK" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT"/>
+			
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.50.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

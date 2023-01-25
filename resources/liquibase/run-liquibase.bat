@@ -1,0 +1,2 @@
+liquibase --driver=com.mysql.jdbc.Driver --classpath= [ruta-haciaa-conector] --changeLogFile=db.changelog-master.xml --url="jdbc:mysql://[Dirección IP de la BD]:3306/liberadbdev" --username=[Usuario] --password=[Contraseña]
+pause

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="omar-ramirez" id="changelog-1.51">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.51" />
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.51.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.51.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.51.3">
+		<!-- Change set for Other Tables DDL -->
+        
+        <sql>
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST MODIFY COLUMN RATE_PERCENTAGE DECIMAL(10,2);
+        </sql>
+
+        <sql>
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST MODIFY COLUMN PAYER_REQUEST_AMOUNT DECIMAL(10,2);
+        </sql>
+				
+				<sql>
+            ALTER TABLE ENTERPRISE_QUOTA_REQUEST MODIFY COLUMN LENDER_GRANTED_AMOUNT DECIMAL(10,2);
+        </sql>
+
+	</changeSet>
+
+	<changeSet author="omar-ramirez" id="changelog-1.51.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

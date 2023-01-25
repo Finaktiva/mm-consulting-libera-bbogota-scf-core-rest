@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.15">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.15" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.15.1">
+		<!-- Change set for Catalogs DDL -->
+
+        <createTable tableName="CAT_LADA">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+            <column name="COUNTRY" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LADA" type="VARCHAR(25)">
+                <constraints nullable="true"/>
+            </column>
+		</createTable>
+
+        <createTable tableName="CAT_SECTOR">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+            <column name="NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+		</createTable>
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.15.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.15.3">
+		<!-- Change set for Other Tables DDL -->
+		
+		<dropColumn columnName="PHONE" tableName="USER_PROPERTIES"/>
+
+        <createTable tableName="PHONE">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+            <column name="NUMBER" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LADA_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+		</createTable>
+
+        <addColumn tableName="USER_PROPERTIES">
+            <column name="PHONE_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE">
+            <column name="SECTOR_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE">
+            <column name="TYPE" type="VARCHAR(25)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint constraintName="FK_PHONE_0"
+            baseTableName="PHONE" baseColumnNames="LADA_ID"
+            referencedTableName="CAT_LADA" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+        <addForeignKeyConstraint constraintName="FK_USER_PROPERTIES_PHONE_0"
+            baseTableName="USER_PROPERTIES" baseColumnNames="PHONE_ID"
+            referencedTableName="PHONE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+        <addForeignKeyConstraint constraintName="FK_ENTERPRISE_SECTOR_0"
+            baseTableName="ENTERPRISE" baseColumnNames="SECTOR_ID"
+            referencedTableName="CAT_SECTOR" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.15.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

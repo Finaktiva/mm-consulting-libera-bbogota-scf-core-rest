@@ -1,0 +1,73 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="angel-audelo" id="changelog-1.75">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.75" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.75.1">
+		<!-- Change set for Catalogs DDL -->
+		<createTable tableName="CAT_CIIU_ECONOMIC_SECTOR">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(250)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="CAT_CIIU_ECONOMIC_ACTIVITY">
+			<column name="CIIU_CODE" type="VARCHAR(10)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(250)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ECONOMIC_SECTOR_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FK0_CAT_CIIU_EA_CAT_CIIU_ES"
+			baseTableName="CAT_CIIU_ECONOMIC_ACTIVITY" baseColumnNames="ECONOMIC_SECTOR_ID"
+			referencedTableName="CAT_CIIU_ECONOMIC_SECTOR" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.75.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+		<sqlFile path="sql/CAT_CIIU_ECONOMIC_SECTOR.sql" />
+		<sqlFile path="sql/CAT_CIIU_ECONOMIC_ACTIVITY.sql" />
+	</changeSet>
+		
+	<changeSet author="angel-audelo" id="changelog-1.75.3">
+		<!-- Change set for Other Tables DDL -->
+		<dropColumn columnName="ECONOMIC_ACTIVITY" tableName="ENTERPRISE"/>
+		<dropColumn columnName="ECONOMIC_SECTOR" tableName="ENTERPRISE"/>
+		<renameColumn
+			tableName="ENTERPRISE"
+			oldColumnName="CIIU"
+			newColumnName="CIIU_CODE"
+			columnDataType="VARCHAR(10)"/>
+		<addForeignKeyConstraint constraintName="FK5_ENTERPRISE_CAT_CIIU_EA"
+			baseTableName="ENTERPRISE" baseColumnNames="CIIU_CODE"
+			referencedTableName="CAT_CIIU_ECONOMIC_ACTIVITY" referencedColumnNames="CIIU_CODE"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.75.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

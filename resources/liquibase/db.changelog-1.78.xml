@@ -1,0 +1,255 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="angel-audelo" id="changelog-1.78">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.78" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.78.1">
+		<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.78.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+		
+	<changeSet author="angel-audelo" id="changelog-1.78.3">
+		<!-- Change set for Other Tables DDL -->
+		<createTable tableName="ENTERPRISE_FINANCING_PLAN">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="FOLIO_NUMBER" type="VARCHAR(36)" >
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="TYPE" type="VARCHAR(15)" >
+				<constraints nullable="false"/>
+			</column>
+			<column name="COMMENTS" type="VARCHAR(200)" >
+				<constraints nullable="true"/>
+			</column>
+			<column name="PAYER_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PROVIDER_ID" type="BIGINT">
+				<constraints nullable="true"/>
+			</column>
+			<column name="AGREEMENT" type="bit(1)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="REQUIRE_PROVIDER_AUTH_FOR_PERFORM_OPERATION" type="bit(1)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="PROVIDER_AUTH_AFTER_DAY" type="INTEGER">
+				<constraints nullable="true"/>
+			</column>
+			<column name="TOTAL_SALES" type="DECIMAL(14,2)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="SALES_CUT" type="DATETIME">
+				<constraints nullable="true"/>
+			</column>
+			<column name="MINIMUM_BASE_RATE_TYPE" type="VARCHAR(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="MINIMUM_BASE_RATE_VALUE" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="MINIMUM_SPECIAL_RATE_VALUE" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="MINIMUM_SPECIAL_RATE_PERIODICITY_TYPE" type="VARCHAR(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="MINIMUM_EFFECTIVE_RATE_EA" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="MINIMUM_EFFECTIVE_RATE_MV" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="SPECIAL_RATE" type="bit(1)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="VALIDITY_DAYS" type="INTEGER">
+				<constraints nullable="false"/>
+			</column>
+			<column name="VALIDITY_DATE" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NEGOTIATED_BASE_RATE_TYPE" type="VARCHAR(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NEGOTIATED_BASE_RATE_VALUE" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NEGOTIATED_SPECIAL_RATE_VALUE" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NEGOTIATED_RATE_PERIODICITY_TYPE" type="VARCHAR(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NEGOTIATED_EFFECTIVE_RATE_EA" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NEGOTIATED_EFFECTIVE_RATE_MV" type="DECIMAL(6,4)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PAYDAY_INITIAL_RANGE" type="INTEGER">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PAYDAY_FINAL_RANGE" type="INTEGER">
+				<constraints nullable="true"/>
+			</column>
+			<column name="OPERATION_TERM_DAYS" type="INTEGER">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PAYMENT_METHOD" type="VARCHAR(50)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PUNCTUAL_PLAN" type="bit(1)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="EVIDENCE_FILE_ID" type="BIGINT">
+				<constraints nullable="true"/>
+			</column>
+			<column name="CREATION_USER_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="MODIFICATION_USER_ID" type="BIGINT">
+				<constraints nullable="true"/>
+			</column>
+			<column name="MODIFICATION_DATE" type="DATETIME">
+				<constraints nullable="true"/>
+			</column>
+			<column name="APPROVAL_USER_ID" type="BIGINT">
+				<constraints nullable="true"/>
+			</column>
+			<column name="APPROVAL_DATE" type="DATETIME">
+				<constraints nullable="true"/>
+			</column>
+			<column name="ACCEPTANCE_USER_ID" type="BIGINT">
+				<constraints nullable="true"/>
+			</column>
+			<column name="ACCEPTANCE_DATE" type="DATETIME">
+				<constraints nullable="true"/>
+			</column>
+			<column name="STATUS" type="VARCHAR(30)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<createTable tableName="ENTERPRISE_ECONOMIC_GROUP">
+			<column name="FINANCING_PLAN_ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="ENTERPRISE_ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="SALES" type="DECIMAL(14,2)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="SALES_CUT" type="DATETIME">
+				<constraints nullable="true"/>
+			</column>
+			<column name="CREATION_USER_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<createTable tableName="FINANCING_PLAN_CLIENT_PERMISSION">
+			<column name="FINANCING_PLAN_ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="PERMISSION" type="VARCHAR(30)">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK0_FPC_PERMISSION_EFINANCING_PLAN"
+			baseTableName="FINANCING_PLAN_CLIENT_PERMISSION" baseColumnNames="FINANCING_PLAN_ID"
+			referencedTableName="ENTERPRISE_FINANCING_PLAN" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK0_EECONOMIC_GROUP_EFINANCING_PLAN"
+			baseTableName="ENTERPRISE_ECONOMIC_GROUP" baseColumnNames="FINANCING_PLAN_ID"
+			referencedTableName="ENTERPRISE_FINANCING_PLAN" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK1_EECONOMIC_GROUP_ENTERPRISE"
+			baseTableName="ENTERPRISE_ECONOMIC_GROUP" baseColumnNames="ENTERPRISE_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK2_EECONOMIC_GROUP_USER"
+			baseTableName="ENTERPRISE_ECONOMIC_GROUP" baseColumnNames="CREATION_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK0_EFINANCING_PLAN_ENTERPRISE"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="PAYER_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK1_EFINANCING_PLAN_ENTERPRISE"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="PROVIDER_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK2_EFINANCING_PLAN_CB_RATE"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="MINIMUM_BASE_RATE_TYPE"
+			referencedTableName="CAT_BASE_RATE_TYPE" referencedColumnNames="CODE"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK3_EFINANCING_PLAN_CR_PERIODICITY"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="MINIMUM_SPECIAL_RATE_PERIODICITY_TYPE"
+			referencedTableName="CAT_RATE_PERIODICITY_TYPE" referencedColumnNames="CODE"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK4_EFINANCING_PLAN_CB_RATE"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="NEGOTIATED_BASE_RATE_TYPE"
+			referencedTableName="CAT_BASE_RATE_TYPE" referencedColumnNames="CODE"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+			<addForeignKeyConstraint constraintName="FK5_EFINANCING_PLAN_CR_PERIODICITY"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="NEGOTIATED_RATE_PERIODICITY_TYPE"
+			referencedTableName="CAT_RATE_PERIODICITY_TYPE" referencedColumnNames="CODE"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+			<addForeignKeyConstraint constraintName="FK6_EFINANCING_PLAN_S3_METADATA"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="EVIDENCE_FILE_ID"
+			referencedTableName="S3_METADATA" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK7_EFINANCING_PLAN_USER"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="CREATION_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK8_EFINANCING_PLAN_USER"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="MODIFICATION_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK9_EFINANCING_PLAN_USER"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="APPROVAL_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+		<addForeignKeyConstraint constraintName="FK10_EFINANCING_PLAN_USER"
+			baseTableName="ENTERPRISE_FINANCING_PLAN" baseColumnNames="ACCEPTANCE_USER_ID"
+			referencedTableName="USER" referencedColumnNames="ID"
+			onDelete="RESTRICT" onUpdate="RESTRICT"/>
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.78.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

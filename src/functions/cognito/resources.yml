@@ -1,0 +1,61 @@
+resources:
+  Resources:
+    PreSignupTriggerInvokePermission:
+      Type: AWS::Lambda::Permission
+      DependsOn: PreSignUpLambdaFunction
+      Properties:
+        Action: lambda:InvokeFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn:
+          !ImportValue Libera-${self:provider.stage}-User-Pool-Arn
+        FunctionName: !Ref PreSignUpLambdaFunction
+
+    CustomMessageTriggerInvokePermission:
+      Type: AWS::Lambda::Permission
+      DependsOn: CustomMessageLambdaFunction
+      Properties:
+        Action: lambda:InvokeFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn:
+          !ImportValue Libera-${self:provider.stage}-User-Pool-Arn
+        FunctionName: !Ref CustomMessageLambdaFunction
+
+    PreAuthenticationTriggerInvokePermission:
+      Type: AWS::Lambda::Permission
+      DependsOn: PreAuthenticationLambdaFunction
+      Properties:
+        Action: lambda:InvokeFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn:
+          !ImportValue Libera-${self:provider.stage}-User-Pool-Arn
+        FunctionName: !Ref PreAuthenticationLambdaFunction
+
+    PostAuthenticationTriggerInvokePermission:
+      Type: AWS::Lambda::Permission
+      DependsOn: PostAuthenticationLambdaFunction
+      Properties:
+        Action: lambda:InvokeFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn:
+          !ImportValue Libera-${self:provider.stage}-User-Pool-Arn
+        FunctionName: !Ref PostAuthenticationLambdaFunction
+
+    PostConfirmationTriggerInvokePermission:
+      Type: AWS::Lambda::Permission
+      DependsOn: PostConfirmationLambdaFunction
+      Properties:
+        Action: lambda:InvokeFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn:
+          !ImportValue Libera-${self:provider.stage}-User-Pool-Arn
+        FunctionName: !Ref PostConfirmationLambdaFunction
+
+    PreTokenGenerationTriggerInvokePermission:
+      Type: AWS::Lambda::Permission
+      DependsOn: PreTokenGenerationLambdaFunction
+      Properties:
+        Action: lambda:InvokeFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn:
+          !ImportValue Libera-${self:provider.stage}-User-Pool-Arn
+        FunctionName: !Ref PreTokenGenerationLambdaFunction

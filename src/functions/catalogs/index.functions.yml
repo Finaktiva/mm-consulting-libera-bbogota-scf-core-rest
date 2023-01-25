@@ -1,0 +1,194 @@
+getLadas:
+    handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}country-calling-codes.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_CATALOGS_COUNTRY_CALLING_CODES_ENV}
+    events:
+      - http:
+          method: get
+          path: catalogs/country-calling-codes
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+getSectors:
+    handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}enterprises-sectors.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_CATALOGS_ENTERPRISE_SECTORS_ENV}
+    events:
+      - http:
+          method: get
+          path: catalogs/enterprise-sectors
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+
+getAllCurrencyCodes:
+    handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}currency-codes.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_CATALOGS_CURRENCY_CODES_ENV}
+    events:
+      - http:
+          method: get
+          path: catalogs/currency-codes
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getAllLanguages:
+    handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-all-languages.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_CATALOGS_LANGUAGES_ENV}
+    events:
+      - http:
+          method: get
+          path: catalogs/languages
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getCitiesAndDepartments:
+    handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-cities-departments.handler
+    environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_CITIES_DEPARTMENTS_ENV}
+    events:
+      - http:
+          method: get
+          path: catalogs/cities-departments
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+             'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getEconomicActivity:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-economic-activity.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ECONOMIC_ACTIVITY_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/economic-activities/{ciiuCode}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getBanks:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-banks.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_BANKS_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/banks
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getDocuments:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-documents.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_DOCUMENTS_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/documents
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getRatesAndPeriodicity:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-base-rates-information.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_BASE_RATES_INFORMATION_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/base-rate-types
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getAllRegions:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-all-regions.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_REGIONS_CATALOG_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/bank-regions
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+getAllRoles:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-all-roles.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ROLES_CATALOG_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/roles
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            'Fn::ImportValue': libera-${self:provider.stage}-basic-authorizer
+createRole:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}create-role.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):CREATE_ROLE_ENV}
+  events:
+    - http:
+        method: post
+        path: catalogs/roles
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId: 
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateRole:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}update-role.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_ROLE_ENV}
+  events:
+    - http:
+        method: put
+        path: catalogs/roles/{code}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId: 
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getRoleInformation:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-role-information.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ROLE_INFORMATION_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/roles/{code}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId: 
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+updateRoleStatus:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}update-role-status.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):UPDATE_ROLE_STATUS_ENV}
+  events:
+    - http:
+        method: patch
+        path: catalogs/roles/{code}
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId: 
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer
+getRolePermissions:
+  handler: ${self:custom.prefix_module, 'src/functions/catalogs/'}get-role-permissions.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):GET_ROLE_PERMISSIONS_ENV}
+  events:
+    - http:
+        method: get
+        path: catalogs/role-permissions
+        cors: true
+        authorizer:
+          type: CUSTOM
+          authorizerId:
+            "Fn::ImportValue": libera-${self:provider.stage}-basic-authorizer

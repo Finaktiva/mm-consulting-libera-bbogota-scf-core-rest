@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="rafael-santos" id="changelog-1.67">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.67" />
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.67.1">
+		<!-- Change set for Catalogs DDL -->
+		<createTable tableName="CODES_CIIU">
+			<column name="CIIU" type="VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="ACTIVIDAD_ECONOMICA" type="VARCHAR(255)" >
+				<constraints nullable="true"/>
+			</column>
+			<column name="SECTOR_ECONOMICO" type="VARCHAR(255)" >
+				<constraints nullable="true"/>
+			</column>	
+		</createTable>
+
+		<createTable tableName="CITIES_DEPARTMENTS">
+			<column name="COD_DEP" type="VARCHAR(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="DPTO" type="VARCHAR(255)" >
+				<constraints nullable="true"/>
+			</column>
+			<column name="COD_CIU" type="VARCHAR(255)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="CIUD" type="VARCHAR(255)" >
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+
+		<createTable tableName="BANKS">
+			<column name="STR_CODIGO_BANCO" type="VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="STR_RAZON_SOCIAL" type="VARCHAR(255)" >
+				<constraints nullable="true"/>
+			</column>
+			<column name="NUM_CODIGO_ACH_CENIT" type="VARCHAR(255)" >
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.67.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this changes) -->
+		<sqlFile path="sql/CAT_CITIES_DEPARTMENTS.sql" />
+		<sqlFile path="sql/CAT_BANKS.sql" />
+		<sqlFile path="sql/CAT_CODES_CIIU.sql" />
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.67.3">
+		<!-- Change set for Other Tables DDL -->
+		<addColumn tableName="ENTERPRISE">
+			<column name="ENTERPRISE_DOCUMENT_TYPE" type="VARCHAR(255)" />
+			<column name="PRODUCT_TYPE" type="VARCHAR(255)" />
+			<column name="DEPARTMENT" type="VARCHAR(255)" />
+			<column name="CITY" type="VARCHAR(255)" />
+			<column name="CIIU" type="VARCHAR(255)" />
+			<column name="ECONOMIC_ACTIVITY" type="VARCHAR(255)" />
+			<column name="ECONOMIC_SECTOR" type="VARCHAR(255)" />
+			<column name="RELATIONSHIP_MANAGER" type="VARCHAR(255)" />
+			<column name="SALE" type="VARCHAR(255)" />
+			<column name="SALES_CUT" type="VARCHAR(255)" />
+		</addColumn>
+
+		<addColumn tableName="USER_PROPERTIES">
+			<column name="DOCUMENT_TYPE" type="VARCHAR(255)" />
+			<column name="DOCUMENT_NUMBER" type="VARCHAR(255)" />
+			<column name="PHONE_EXT" type="VARCHAR(255)" />
+			<column name="PHONE_NUMBER" type="VARCHAR(255)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.67.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

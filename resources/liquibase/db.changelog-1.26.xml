@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.26">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.26" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.26.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.26.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.26.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<createTable tableName="CUSTOM_ATTRIBUTES">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="TYPE" type="VARCHAR(30)" >
+                <constraints nullable="false" />
+            </column>
+			<column name="NAME" type="VARCHAR(150)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+        <!-- <createTable tableName="ENTERPRISE_INVOICE">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="INVOICE_NUMBER" type="VARCHAR(20)" >
+                <constraints nullable="false" />
+            </column>
+			<column name="ENTERPRISE_PROVIDER_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTERPRISE_ID" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+            <column name="EXPIRATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+            <column name="STATUS" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="DISCOUNT" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="VERSION" type="INTEGER" >
+				<constraints nullable="false" />
+			</column>
+            <column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+            <column name="ISSUED_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+            <column name="CURRENCY_CODE" type="VARCHAR(3)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="IVA" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="RETENTION" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="ANTICIPATED" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="CREDIT_NOTES" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="PAYMENT_TYPE" type="VARCHAR(16)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="DOCUMENT_TYPE" type="VARCHAR(16)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable> -->
+
+        <createTable tableName="ENTERPRISE_CUSTOM_ATTRIBUTES">
+			<column name="ENTERPRISE_ID" type="BIGINT" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="CUSTOM_ATTRIBUTE_ID" type="BIGINT" >
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+        <createTable tableName="ENTERPRISE_INVOICE_CUSTOM_ATTRIBUTES">
+			<column name="ENTERPRISE_INVOICE_ID" type="BIGINT" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="CUSTOM_ATTRIBUTE_ID" type="BIGINT" >
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+			<column name="VALUE" type="VARCHAR(220)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<!-- <addForeignKeyConstraint constraintName="FK_ENTERPRISE_INVOICE_0"
+            baseTableName="ENTERPRISE_INVOICE" baseColumnNames="ENTERPRISE_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_INVOICE_1"
+			baseTableName="ENTERPRISE_INVOICE" baseColumnNames="ENTERPRISE_PROVIDER_ID"
+			referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" /> -->
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_CUSTOM_ATTRIBUTES_0"
+				baseTableName="ENTERPRISE_CUSTOM_ATTRIBUTES" baseColumnNames="ENTERPRISE_ID"
+				referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+				deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+				onUpdate="RESTRICT" />
+		
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_CUSTOM_ATTRIBUTES_1"
+				baseTableName="ENTERPRISE_CUSTOM_ATTRIBUTES" baseColumnNames="CUSTOM_ATTRIBUTE_ID"
+				referencedTableName="CUSTOM_ATTRIBUTES" referencedColumnNames="ID"
+				deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+				onUpdate="RESTRICT" />
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.26.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

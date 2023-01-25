@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.2">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.2" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.2.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.2.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+        <insert tableName="ROLE">
+            <column name="NAME" value="LIBERA_ADMIN"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+
+        <insert tableName="ROLE">
+            <column name="NAME" value="LIBERA_COLLABORATOR"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+
+        <insert tableName="ROLE">
+            <column name="NAME" value="ENTERPRISE_CONSOLE_ADMIN"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+
+        <insert tableName="ROLE">
+            <column name="NAME" value="ENTERPRISE_PAYER_ADMIN"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+
+        <insert tableName="ROLE">
+            <column name="NAME" value="ENTERPRISE_PROVIDER_ADMIN"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+
+        <insert tableName="ROLE">
+            <column name="NAME" value="ENTERPRISE_FUNDING_ADMIN"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.2.3">
+		<!-- Change set for Other Tables DDL -->
+        <dropUniqueConstraint  tableName="USER" constraintName="EMAIL"/>
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.2.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

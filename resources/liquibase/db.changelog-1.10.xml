@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="monica-sanchez" id="changelog-1.10">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.10" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.10.1">
+		<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.10.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.10.3">
+		<!-- Change set for Other Tables DDL -->
+		
+		<createTable tableName="ENTERPRISE_LINKS">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="ENTERPRISE_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="ENTERPRISE_LINK_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="LINK_TYPE" type="VARCHAR(50)" >
+				<constraints nullable="false" />
+			</column>
+            <column name="STATUS" type="VARCHAR(50)" >
+                <constraints nullable="false" />
+            </column>
+			<column name="LINK_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+        
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_LINKED_0"
+            baseTableName="ENTERPRISE_LINKS" baseColumnNames="ENTERPRISE_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_LINKED_1"
+            baseTableName="ENTERPRISE_LINKS" baseColumnNames="ENTERPRISE_LINK_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+		<createTable tableName="ENTERPRISE_REQUEST">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="COMMENTS" type="VARCHAR(255)" >
+				<constraints nullable="true" />
+			</column>
+            <column name="STATUS" type="VARCHAR(50)" >
+                <constraints nullable="false" />
+            </column>
+			<column name="REQUEST_TYPE" type="VARCHAR(100)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="ENTERPRISE_ID" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="REQUEST_PARENT_ID" type="BIGINT" >
+                <constraints nullable="true" />
+            </column>
+			<column name="CREATION_USER" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+			<column name="ENTERPRISE_LINK_ID" type="BIGINT" >
+                <constraints nullable="true" />
+            </column>
+		</createTable>
+        
+        <addForeignKeyConstraint constraintName="FK_ENTERPRISE_REQUEST_0"
+		    baseTableName="ENTERPRISE_REQUEST" baseColumnNames="ENTERPRISE_ID"
+		    referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+		    deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+		    onUpdate="RESTRICT" />
+
+        <addForeignKeyConstraint constraintName="FK_ENTERPRISE_REQUEST_1"
+            baseTableName="ENTERPRISE_REQUEST" baseColumnNames="REQUEST_PARENT_ID"
+            referencedTableName="ENTERPRISE_REQUEST" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+            
+        <addForeignKeyConstraint constraintName="FK_ENTERPRISE_REQUEST_2"
+            baseTableName="ENTERPRISE_REQUEST" baseColumnNames="CREATION_USER"
+            referencedTableName="USER" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+			
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_REQUEST_3"
+            baseTableName="ENTERPRISE_REQUEST" baseColumnNames="ENTERPRISE_LINK_ID"
+            referencedTableName="ENTERPRISE_LINKS" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.10.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

@@ -1,0 +1,82 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="daniel-ledezma" id="changelog-1.80">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.80" />
+	</changeSet>
+
+	<changeSet author="daniel-ledezma" id="changelog-1.80.1">
+		<!-- Change set for Catalogs DDL -->
+		<createTable tableName="CAT_PERMISSION">
+			<column name="CODE" type="VARCHAR(100)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="SEGMENT" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="APPLIES_TO_USER_TYPE" type="VARCHAR(15)" defaultValue='LIBERA_USER'>
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="ENABLED" type="BIT(1)" defaultValue="1">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="REL_ROLE_PERMISSION">
+			<column name="ROLE" type="VARCHAR(100)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			
+			<column name="PERMISSION" type="VARCHAR(100)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="FK0_REL_RP_ROLE"
+			baseTableName="REL_ROLE_PERMISSION" baseColumnNames="ROLE"
+			referencedTableName="ROLE" referencedColumnNames="NAME"
+			onDelete="RESTRICT" onUpdate="RESTRICT" />
+		
+		<addForeignKeyConstraint constraintName="FK1_REL_RP_CAT_PERMISSION"
+			baseTableName="REL_ROLE_PERMISSION" baseColumnNames="PERMISSION"
+			referencedTableName="CAT_PERMISSION" referencedColumnNames="CODE"
+			onDelete="RESTRICT" onUpdate="RESTRICT" />
+
+	</changeSet>
+
+	<changeSet author="daniel-ledezma" id="changelog-1.80.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+		
+	<changeSet author="daniel-ledezma" id="changelog-1.80.3">
+		<!-- Change set for Other Tables DDL -->
+
+	</changeSet>
+
+	<changeSet author="daniel-ledezma" id="changelog-1.80.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+</databaseChangeLog>

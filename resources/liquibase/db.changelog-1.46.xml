@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.46">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.46" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.46.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.46.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.46.3">
+		<!-- Change set for Other Tables DDL -->
+        
+        <addColumn tableName="ENTERPRISE_INVOICE_FUNDING_PROCESS">
+            <column name="FUNDING_TRANSACTION_ID" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        
+		<addForeignKeyConstraint constraintName="FK_FUNDING_TRANSACTION_3"
+			baseTableName="ENTERPRISE_INVOICE_FUNDING_PROCESS" baseColumnNames="FUNDING_TRANSACTION_ID"
+			referencedTableName="ENTERPRISE_FUNDING_TRANSACTIONS" referencedColumnNames="ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.46.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

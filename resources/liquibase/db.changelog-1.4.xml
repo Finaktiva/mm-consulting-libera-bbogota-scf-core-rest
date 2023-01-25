@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.4">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.4" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.4.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.4.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+		<insert tableName="CAT_MODULE">
+            <column name="NAME" value="PAYER"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_MODULE">
+            <column name="NAME" value="PROVIDER"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_MODULE">
+            <column name="NAME" value="FUNDING"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_MODULE">
+            <column name="NAME" value="ADMIN"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="ENROLLMENT_FORM"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="CHAMBER_OF_COMMERCE_CERTIFICATE"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="LEGAL_REPRESENTATIVE_ID"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="RUT"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="PAYER_AGREEMENT"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="PROVIDER_AGREEMENT"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="FUNDING_AGREEMENT"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+            <column name="CODE" value="SHAREHOLDING_STRUCTURE"/>
+            <column name="DESCRIPTION" value=""/>
+			<column name="TEMPLATE_URL" value=""/>
+        </insert>
+
+		<insert tableName="CAT_NOTIFICATION_TYPE">
+            <column name="CODE" value="NEW_REQUEST"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+		
+		<insert tableName="CAT_NOTIFICATION_TYPE">
+            <column name="CODE" value="MODULE_REQUEST"/>
+            <column name="DESCRIPTION" value=""/>
+        </insert>
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.4.3">
+		<!-- Change set for Other Tables DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.4.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

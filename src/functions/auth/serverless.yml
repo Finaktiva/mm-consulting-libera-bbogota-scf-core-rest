@@ -1,0 +1,38 @@
+service:
+  name: libera-authorizer
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-deployment-bucket
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${file(${self:custom.rootDir}properties/properties.yaml):ENV.${self:provider.stage}.AWS.REGION}
+  stage: ${opt:stage, 'dev'}
+  deploymentBucket:
+    name: libera-${self:provider.stage}-deployment-bucket
+  resourcePolicy:
+    - Effect: Allow
+      Principal: "*"
+      Action: execute-api:Invoke
+      Resource: 
+        - execute-api:/*/*/*
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - lambda:*
+      Resource: '*'
+
+custom:
+  prefix_module: ""
+  rootDir: "../../../"
+  webpack: "../../../webpack.config.js"
+  env: ${self:custom.rootDir}properties/properties.yaml
+
+package:
+  individually: true
+
+functions: ${file(./index.functions.yml)}
+resources: ${file(./resources.yml):resources}

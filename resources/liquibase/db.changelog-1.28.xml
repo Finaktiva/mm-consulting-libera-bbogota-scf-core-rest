@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="monica-sanchez" id="changelog-1.28">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.28" />
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.28.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.28.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.28.3">
+		<!-- Change set for Other Tables DDL -->
+
+	  	<createTable tableName="CAT_CURRENCY">
+			<column name="CODE" type="VARCHAR(3)" >
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(50)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<createTable tableName="ENTERPRISE_INVOICE_PROVIDER">
+			<column name="ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="INVOICE_ID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="PROVIDER_ID" type="BIGINT" >
+				<constraints nullable="true"/>
+			</column>
+			<column name="NAME" type="VARCHAR(250)" >
+				<constraints nullable="false"/>
+			</column>
+			<column name="NIT" type="VARCHAR(13)" >
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<createTable tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+			<column name="NEGOTIATION_PROCESS_ID" type="BIGINT" autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="ENTERPRISE_INVOICE_ID" type="BIGINT" >
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="CREATION_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="FINISHED_DATE" type="DATETIME" >
+				<constraints nullable="true" />
+			</column>
+			<column name="EFFECTIVE_PAYMENT_DATE" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="STATUS" type="VARCHAR(30)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="BPM_PROCESS_INSTANCE_ID" type="BIGINT" >
+				<constraints nullable="true" />
+			</column>
+			<column name="PAYER_REQUESTED_DISCOUNT_PERCENTAGE" type="INTEGER" >
+				<constraints nullable="false" />
+			</column>
+			<column name="PAYER_REQUESTED_DISCOUNT_VIGENCY_FROM" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="PAYER_REQUESTED_DISCOUNT_VIGENCY_UNTIL" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="PROVIDER_REQUESTED_DISCOUNT_PERCENTAGE" type="INTEGER" >
+				<constraints nullable="true" />
+			</column>
+			<column name="PROVIDER_REQUESTED_DISCOUNT_VIGENCY_FROM" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="PROVIDER_REQUESTED_DISCOUNT_VIGENCY_UNTIL" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="AGREED_DISCOUNT_PERCENTAGE" type="INTEGER" >
+				<constraints nullable="false" />
+			</column>
+			<column name="AGREED_EXPECTED_PAYMENT_VIGENCY_FROM" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="AGREED_EXPECTED_PAYMENT_VIGENCY_UNTIL" type="DATETIME" >
+				<constraints nullable="false" />
+			</column>
+			<column name="PAYMENT_TYPE" type="VARCHAR(16)" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_INVOICE_2"
+				baseTableName="ENTERPRISE_INVOICE" baseColumnNames="CURRENCY_CODE"
+				referencedTableName="CAT_CURRENCY" referencedColumnNames="CODE"
+				deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+				onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_INVOICE_PROVIDER_0"
+            baseTableName="ENTERPRISE_INVOICE_PROVIDER" baseColumnNames="INVOICE_ID"
+            referencedTableName="ENTERPRISE_INVOICE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_INVOICE_PROVIDER_1"
+            baseTableName="ENTERPRISE_INVOICE_PROVIDER" baseColumnNames="PROVIDER_ID"
+            referencedTableName="ENTERPRISE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+		<addForeignKeyConstraint constraintName="FK_ENTERPRISE_INVOICE_NEGOTIATION_PROCESS_0"
+            baseTableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" baseColumnNames="ENTERPRISE_INVOICE_ID"
+            referencedTableName="ENTERPRISE_INVOICE" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT"/>
+
+	</changeSet>
+
+	<changeSet author="monica-sanchez" id="changelog-1.28.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

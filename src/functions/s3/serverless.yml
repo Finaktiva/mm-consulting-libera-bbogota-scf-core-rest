@@ -1,0 +1,30 @@
+service:
+  name: libera-s3
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-deployment-bucket
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${file(${self:custom.rootDir}properties/properties.yaml):ENV.${self:provider.stage}.AWS.REGION}
+  stage: ${opt:stage, 'dev'}
+  deploymentBucket:
+    name: libera-${self:provider.stage}-deployment-bucket
+  iamRoleStatements: ${file(${self:custom.rootDir}properties/iamRoleStatements.yml):iamRoleStatements}
+  apiGateway:
+    restApiId: 
+      !ImportValue Libera-${self:provider.stage}-RestApiId
+    restApiRootResourceId: 
+      !ImportValue Libera-${self:provider.stage}-RootResourceId
+
+custom:
+  prefix_module: ""
+  rootDir: "../../../"
+  env: ${self:custom.rootDir}properties/properties.yaml
+  webpack: "../../../webpack.config.js"
+
+functions:
+  - ${file(./index.functions.yml)}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="pedro-enriquez" id="changelog-1.44">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.44" />
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.44.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.44.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.44.3">
+		<!-- Change set for Other Tables DDL -->
+        <renameColumn 
+            tableName="ENTERPRISE_QUOTA_REQUEST"
+            oldColumnName="TYPE"
+            newColumnName="QUOTA_REQUEST_TYPE"
+            columnDataType="VARCHAR(40)"/>
+
+        <renameColumn
+            tableName="ENTERPRISE_FUNDING_TRANSACTIONS"
+            oldColumnName="TYPE"
+            newColumnName="TRANSACTION_TYPE"
+            columnDataType="VARCHAR(25)"/>
+
+	</changeSet>
+
+	<changeSet author="pedro-enriquez" id="changelog-1.44.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

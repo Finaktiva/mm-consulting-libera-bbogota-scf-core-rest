@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.31">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.31" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.31.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.31.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.31.3">
+		<!-- Change set for Other Tables DDL -->
+
+        <addColumn tableName="ENTERPRISE_INVOICE">
+            <column name="PAYMENT_DATE" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+		<dropColumn tableName="ENTERPRISE_INVOICE" columnName="NEGOTIATION_ID" />
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.31.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

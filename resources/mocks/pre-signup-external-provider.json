@@ -1,0 +1,25 @@
+{
+    "version": "1",
+    "region": "us-east-1",
+    "userPoolId": "us-east-1_DbOBRUQLU",
+    "userName": "BOCC-Azure-AD_kczc3AlzMpoggvTUELkSaDB5RaB0_2YWRMFbX26CLj8",
+    "callerContext": {
+        "awsSdkVersion": "aws-sdk-unknown-unknown",
+        "clientId": "7uejhpupn5tvarf6qjjnhg7ie7"
+    },
+    "triggerSource": "PreSignUp_ExternalProvider",
+    "request": {
+        "userAttributes": {
+        "email_verified": "false",
+        "cognito:email_alias": "",
+        "cognito:phone_number_alias": "",
+        "email": "mpanesso@bancodeoccidente.com.co"
+    },
+    "validationData": {}
+    },
+    "response": {
+        "autoConfirmUser": false,
+        "autoVerifyEmail": false,
+        "autoVerifyPhone": false
+    }
+}

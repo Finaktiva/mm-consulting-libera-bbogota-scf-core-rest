@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "triggerSource": "TokenGeneration_NewPasswordChallenge",
+    "region": "us-west-2",
+    "userPoolId": "us-west-2_s0z6k1ipU",
+    "userName": "ebalseca@mediomelon.mx",
+    "callerContext": {
+        "awsSdkVersion": "string",
+        "clientId": "58hvefr86km8ceriv7u3s02ll5"
+    },
+    "request": {
+        "userAttributes": {"email": "penriquez26@yopmail.com"}
+    },
+    "response": { }
+}

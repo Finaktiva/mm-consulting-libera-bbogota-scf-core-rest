@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="oscar-perez" id="changelog-1.48">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.48" />
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.48.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.48.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.48.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<sql>
+			ALTER TABLE ENTERPRISE_INVOICE MODIFY COLUMN ALTERNATIVE_INVOICE_NUMBER VARCHAR(50)
+		</sql>
+
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.48.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

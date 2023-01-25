@@ -1,0 +1,27 @@
+{
+    "name": "libera-sqs",
+    "version": "1.0.0",
+    "scripts": {
+      "deploy": "node --max-old-space-size=4096 ../../../node_modules/serverless/bin/serverless.js deploy ",
+      "package": "node --max-old-space-size=4096 ../../../node_modules/serverless/bin/serverless.js package",
+      "deploy-package": "sls deploy --force --package .serverless",
+      "start:sendInvoiceBulk": "sls invoke local -f invoicesBulkLoad -p ../../../resources/mocks/invoices-bulk-load.event.json",
+      "remove": "serverless remove -v"
+    },
+    "dependencies": {
+      "uuid": "^3.3.2",
+      "mongodb": "3.0.8",
+      "typeorm": "^0.2.16"
+    },
+    "devDependencies": {
+      "@types/node": "^11.12.2",
+      "aws-lambda": "^0.1.2",
+      "serverless-offline": "^4.9.3",
+      "serverless-webpack": "^5.1.1",
+      "source-map-support": "^0.5.6",
+      "ts-loader": "^4.2.0",
+      "typescript": "^3.4.1",
+      "webpack": "^4.5.0"
+    }
+  }
+  

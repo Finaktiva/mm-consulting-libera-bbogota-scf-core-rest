@@ -1,0 +1,19 @@
+{
+    "version": 1,
+    "triggerSource": "PreSignUp_SignUp",
+    "region": "us-west-2",
+    "userPoolId": "us-west-2_s0z6k1ipU",
+    "userName": "test",
+    "callerContext": {
+        "awsSdkVersion": "string",
+        "clientId": "58hvefr86km8ceriv7u3s02ll5"
+    },
+    "request": {
+        "userAttributes": {
+            "email" : "penriquez7@yopmail.com" , 
+            "custom:business_name" : "NMNM", 
+            "custom:nit": "900.876.234-0"
+        }
+    },
+    "response": { }
+}

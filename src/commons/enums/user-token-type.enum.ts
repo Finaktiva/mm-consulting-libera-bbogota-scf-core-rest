@@ -1,0 +1,3 @@
+export enum UserTokenTypeEnum {
+    UPDATE_PASSWORD_CHALLENGE = 'UPDATE_PASSWORD_CHALLENGE'
+}

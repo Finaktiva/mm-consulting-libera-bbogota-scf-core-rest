@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="oscar perez" id="changelog-1.56">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.56" />
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.56.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.56.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.56.3">
+		<!-- Change set for Other Tables DDL -->
+
+        <sql>
+            ALTER TABLE ANSWER_OPTIONS DROP FOREIGN KEY FK_ANSWER_CUSTOM_ATTRIBUTES;
+            ALTER TABLE ANSWER_OPTIONS DROP FOREIGN KEY FK_OPTION_CUSTOM_ATTRIBUTES;
+            ALTER TABLE ANSWER_OPTIONS DROP PRIMARY KEY;		
+			ALTER TABLE ANSWER_OPTIONS ADD CONSTRAINT PK_ANSWER_OPTIONS PRIMARY KEY (ANSWER_CUSTOM_ATTRIBUTE_ID,OPTION_ID);
+            ALTER TABLE ANSWER_OPTIONS ADD CONSTRAINT FK_ANSWER_CUSTOM_ATTRIBUTES FOREIGN KEY (ANSWER_CUSTOM_ATTRIBUTE_ID) REFERENCES ANSWER_CUSTOM_ATTRIBUTES(ID);
+            ALTER TABLE ANSWER_OPTIONS ADD CONSTRAINT FK_OPTION_CUSTOM_ATTRIBUTES FOREIGN KEY (OPTION_ID) REFERENCES OPTION_CUSTOM_ATTRIBUTES(ID);
+		</sql>
+
+	</changeSet>
+
+	<changeSet author="oscar perez" id="changelog-1.56.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

@@ -1,0 +1,116 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="angel-audelo" id="changelog-1.70">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.70" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.70.1">
+			<!-- Change set for Catalogs DDL -->
+			
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.70.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+		<delete tableName="CAT_MODULE_DOCUMENTATION"/>
+		<delete tableName="CAT_DOCUMENT_TYPE"/>
+
+		<insert tableName="CAT_DOCUMENT_TYPE">  
+			<column  name="CODE"  value="ENTAILMENT_FORM"/>
+			<column  name="DESCRIPTION"  value="Formato Vinculación"/>
+			<column name="REQUIRED" valueBoolean="true"/>
+			<column name="DEFAULT" valueBoolean="true"/>
+		</insert>
+
+		<insert tableName="CAT_DOCUMENT_TYPE">
+			<column  name="CODE"  value="DEBTORS_CHAMBER_COMMERCE"/>
+			<column  name="DESCRIPTION"  value="Cámara de Comercio del Deudor"/>
+			<column name="REQUIRED" valueBoolean="true"/>
+			<column name="DEFAULT" valueBoolean="true"/>
+			<column name="ANNOUNCEMENT" value="Recuerde que: El certificado cámara de comercio debe tener una expedición máxima de 3 meses"/>
+			<column name="MONTHS_EFFECTIVENESS" value="3"/>
+		</insert>
+
+		<insert tableName="CAT_DOCUMENT_TYPE">
+			<column  name="CODE"  value="CODEBTORS_CHAMBER_COMMERCE"/>
+			<column  name="DESCRIPTION"  value="Cámara de comercio Codeudor/es"/>
+      		<column name="ANNOUNCEMENT" value="Recuerde que: El certificado cámara de comercio debe tener una expedición máxima de 3 meses"/>
+			<column name="MONTHS_EFFECTIVENESS" value="3"/>
+		</insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+			<column  name="CODE"  value="FINANCIAL_STATEMENTS_DEBTOR"/>
+			<column  name="DESCRIPTION"  value="Estados Financieros del deudor"/>
+      		<column name="DEFAULT" valueBoolean="true"/>
+      		<column name="ANNOUNCEMENT" value="Recomendamos: Actualizar sus estados financieros al último corte disponible para facilitar procesos de cupos adicionales."/>
+			<column name="MONTHS_EFFECTIVENESS" value="4"/>
+    	</insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+			<column  name="CODE"  value="MINUTES_DEBTORS_SHAREHOLDERS_MEETING"/>
+			<column  name="DESCRIPTION"  value="Acta de junta de socios del deudor"/>
+      		<column name="ANNOUNCEMENT" value="Recuerde que: Si se tienen limitaciones en las atribuciones del representante legal se solicitará este documento."/>
+			<column name="MONTHS_EFFECTIVENESS" value="12"/>
+    	</insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+			<column  name="CODE"  value="MINUTES_MEETING_CODEBTORS"/>
+			<column  name="DESCRIPTION"  value="Acta de junta de socios codeudor/es"/>
+      		<column name="ANNOUNCEMENT" value="Recuerde que: Si se tienen limitaciones en las atribuciones del representante legal se solicitará este documento."/>
+			<column name="MONTHS_EFFECTIVENESS" value="12"/>
+    	</insert>
+		
+		<insert tableName="CAT_DOCUMENT_TYPE">
+			<column  name="CODE"  value="OTHER_DOCUMENTS"/>
+			<column  name="DESCRIPTION"  value="Otros documentos"/>
+    	</insert>
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.70.3">
+		<!-- Change set for Other Tables DDL -->
+		<modifyDataType tableName="ENTERPRISE_DOCUMENTATION" columnName="COMMENT" newDataType="VARCHAR(500)" />
+		<addColumn tableName="ENTERPRISE_DOCUMENTATION">
+			<column name="DOCUMENT_TYPE_DESCRIPTION" type="VARCHAR(150)">
+					<constraints nullable="true"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="ENTERPRISE_DOCUMENTATION">
+			<column name="EXPEDITION_DATE" type="DATE">
+					<constraints nullable="true"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="ENTERPRISE_DOCUMENTATION">
+			<column name="MONTHS_EFFECTIVENESS" type="INTEGER">
+					<constraints nullable="true"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="ENTERPRISE_DOCUMENTATION">
+			<column name="EFFECTIVENESS_DATE" type="DATE">
+					<constraints nullable="true"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="ENTERPRISE_DOCUMENTATION">
+			<column name="REQUIRED" type="bit(1)" defaultValue="1">
+				<constraints nullable="true"/>
+			</column>
+		</addColumn>
+		
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.70.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog>

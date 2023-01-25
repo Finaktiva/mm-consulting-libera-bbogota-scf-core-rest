@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "triggerSource": "CustomMessage_AdminCreateUser",
+    "region": "us-west-2",
+    "userPoolId": "us-west-2_s0z6k1ipU",
+    "userName": "ecastro021@yopmail.com",
+    "callerContext": {
+        "awsSdkVersion": "string",
+        "clientId": "58hvefr86km8ceriv7u3s02ll5"
+    },
+    "request": {
+        "userAttributes": {
+            "email" : "ecastro021@yopmail.com"
+        },
+        "codeParameter": "{####}",
+        "usernameParameter": "ecastro021@yopmail.com"
+    },
+    "response": {
+        "emailMessage": "",
+        "emailSubject": ""
+    }
+  }

@@ -1,0 +1,17 @@
+preSignUp:
+  handler: ${self:custom.prefix_module, 'src/functions/cognito/'}pre-signUp.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):COGNITO_PRE_SIGNUP_TRIGGER_ENV}
+customMessage:
+  handler: ${self:custom.prefix_module, 'src/functions/cognito/'}custom-message.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):COGNITO_CUSTOM_MESSAGE_TRIGGER_ENV}
+preAuthentication:
+  handler: ${self:custom.prefix_module, 'src/functions/cognito/'}pre-authentication.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):COGNITO_PRE_AUTHENTICATION_TRIGGER_ENV}
+postAuthentication:
+  handler: ${self:custom.prefix_module, 'src/functions/cognito/'}post-authentication.handler
+postConfirmation:
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):POST_CONFIRMATION_TRIGGER_ENV}
+  handler: ${self:custom.prefix_module, 'src/functions/cognito/'}post-confirmation.handler
+preTokenGeneration:
+  handler: ${self:custom.prefix_module, 'src/functions/cognito/'}pre-token-generation.handler
+  environment: ${file(${self:custom.rootDir}properties/variables.yml):PRE_TOKEN_GENERATION_TRIGGER_ENV}

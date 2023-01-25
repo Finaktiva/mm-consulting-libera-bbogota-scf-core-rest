@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="oscar-perez" id="changelog-1.63">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.63" />
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.63.1">
+		<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.63.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for this 
+			changes) -->
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.63.3">
+		<!-- Change set for Other Tables DDL -->
+		
+		<addColumn tableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST">
+            <column name="PAYER_CURRENT_AMOUNT_REQUESTED" type="DECIMAL(25,2)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="ENTERPRISE_INVOICE_BULK_NEGOTIATION_REQUEST">
+            <column name="PROVIDER_CURRENT_AMOUNT_REQUESTED" type="DECIMAL(25,2)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+	</changeSet>
+
+	<changeSet author="oscar-perez" id="changelog-1.63.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

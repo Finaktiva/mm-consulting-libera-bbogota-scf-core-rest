@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.32">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.32" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.3">
+		<!-- Change set for Other Tables DDL -->
+        
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="AGREED_EXPECTED_PAYMENT_DATE" />
+        <dropColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS" columnName="AGREED_DISCOUNT_PERCENTAGE" />
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="CURRENT_DISCOUNT_PERCENTAGE" type="INTEGER">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="CURRENT_DISCOUNT_DUE_DATE" type="DATETIME">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+        <addColumn tableName="ENTERPRISE_INVOICE_NEGOTIATION_PROCESS">
+            <column name="CURRENT_EXPECTED_PAYMENT_DATE" type="DATETIME">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.32.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

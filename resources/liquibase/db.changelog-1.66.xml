@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="rafael-santos" id="changelog-1.66">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.66" />
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.66.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.66.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.66.3">
+		<!-- Change set for Other Tables DDL -->
+        <sql>	
+			ALTER TABLE LENDER_CUSTOM_ATTRIBUTES_LINK MODIFY COLUMN ATTRIBUTE_ID BIGINT(20) NOT NULL;
+		</sql>
+
+	</changeSet>
+
+	<changeSet author="rafael-santos" id="changelog-1.66.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

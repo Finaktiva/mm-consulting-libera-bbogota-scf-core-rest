@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="Fernando-Estrada" id="changelog-1.60">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.60" />
+	</changeSet>
+
+	<changeSet author="Fernando-Estrada" id="changelog-1.60.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="Fernando-Estrada" id="changelog-1.60.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+		<sqlFile path="sql/TEMPLATES_URLS.sql" />
+	</changeSet>
+
+	<changeSet author="Fernando-Estrada" id="changelog-1.60.3">
+		<!-- Change set for Other Tables DDL -->
+	</changeSet>
+
+	<changeSet author="Fernando-Estrada" id="changelog-1.60.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 

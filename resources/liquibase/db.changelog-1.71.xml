@@ -1,0 +1,46 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+				   		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="angel-audelo" id="changelog-1.71">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.71" />
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.71.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.71.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.71.3">
+		<!-- Change set for Other Tables DDL -->
+		<addColumn tableName="ENTERPRISE_DOCUMENTATION">
+			<column name="CREATION_USER_ID" type="BIGINT" afterColumn="MODIFICATION_DATE"/>
+		</addColumn>
+
+		<addForeignKeyConstraint constraintName="FK_CREATION_USER_ID_0"
+            baseTableName="ENTERPRISE_DOCUMENTATION" baseColumnNames="CREATION_USER_ID"
+            referencedTableName="USER" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+						onUpdate="RESTRICT" />
+		
+	</changeSet>
+
+	<changeSet author="angel-audelo" id="changelog-1.71.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog>

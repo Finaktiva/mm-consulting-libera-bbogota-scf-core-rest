@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet author="marco-castro" id="changelog-1.23">
+		<!-- Changes tag -->
+		<tagDatabase tag="tag-1.23" />
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.23.1">
+			<!-- Change set for Catalogs DDL -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.23.2">
+		<!-- Change set for Catalogs DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.23.3">
+		<!-- Change set for Other Tables DDL -->
+
+		<createTable tableName="TEMPORAL_TOKENS">
+            <column name="TOKEN" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" unique="true" />
+            </column>
+
+			<column name="REQUEST_ID" type="bigint">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="EXPIRATION_DATE" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="CREATION_DATE" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="STATUS" type="varchar(10)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="TYPE" type="varchar(30)">
+				<constraints nullable="false" />
+			</column>
+        </createTable>
+
+		<addForeignKeyConstraint constraintName="FK_F1_TOKEN_REQUEST"
+            baseTableName="TEMPORAL_TOKENS" baseColumnNames="REQUEST_ID"
+            referencedTableName="ENTERPRISE_REQUEST" referencedColumnNames="ID"
+            deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" />
+
+	</changeSet>
+
+	<changeSet author="marco-castro" id="changelog-1.23.4">
+		<!-- Change set for Other Tables DML (Must include custom rollback for 
+			this changes) -->
+	</changeSet>
+
+</databaseChangeLog> 
